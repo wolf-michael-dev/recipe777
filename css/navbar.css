@@ -1,0 +1,87 @@
+/* Gemeinsame Basis */
+.bottom-nav {
+  position: fixed;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.nav-item {
+  color: #6c757d;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-item svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+/* --- Apple Navigation (Milchglas & Schwebend) --- */
+.theme-apple .bottom-nav {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(360px, calc(100% - 32px));
+  height: 64px;
+  background-color: rgba(22, 24, 27, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.theme-apple .nav-item {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.theme-apple .nav-item.active {
+  color: #0a84ff; /* Typisches iOS Blue im Dark Mode */
+  background-color: transparent;
+}
+
+/* --- Android Navigation (Material You MD3) --- */
+.theme-android body {
+  padding-bottom: 90px;
+}
+
+.theme-android .bottom-nav {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 800px; /* Verhindert das Ausstrecken am PC */
+  height: 80px;
+  background-color: #17191d;
+  border-radius: 24px 24px 0 0; /* Oben sanft abgerundet */
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.theme-android .nav-item {
+  width: auto;
+  height: auto;
+  padding: 8px 0;
+  flex-direction: column;
+}
+
+.theme-android .nav-item.active {
+  color: #c2e7ff;
+}
+
+.theme-android .nav-item.active svg {
+  background-color: #004a77;
+  padding: 4px 16px;
+  border-radius: 16px;
+  width: 56px;
+  height: 32px;
+  box-sizing: border-box;
+}

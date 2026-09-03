@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe777</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+  </head>
+  <body>
+
+    <main>
+          <h1>Recipe777</h1>
+
+      <!-- Begrüßungskopf -->
+      <header class="welcome-header">
+        <p id="welcome-message"></p>
+      </header>
+
+      <!-- Highlight-Karte -->
+      <article class="recipe-card featured-card">
+        <div class="card-image-wrapper">
+          <img src="assets/images/torte.webp" alt="Torte" class="card-img" />
+          <div class="card-overlay">
+            <span class="badge" id="card-badge"></span>
+            <h2 class="card-title" id="card-title"></h2>
+          </div>
+        </div>
+
+        <!-- Aktions-Buttons -->
+        <div class="card-actions">
+          <div class="action-item">
+            <button class="action-btn" type="button" aria-label="Favorit">❤️</button>
+            <span class="action-label" id="btn-fav"></span>
+          </div>
+          <div class="action-item">
+            <button class="action-btn" type="button" aria-label="Optionen">⚙️</button>
+            <span class="action-label" id="btn-options"></span>
+          </div>
+          <div class="action-item">
+            <button class="action-btn" type="button" aria-label="Teilen">🔗</button>
+            <span class="action-label" id="btn-share"></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Kategorien -->
+      <!-- 4 Kategorien-Raster (komplett) -->
+      <section class="categories-section">
+        <h3 id="categories-title"></h3>
+        <div class="categories-grid">
+          <div class="category-card" tabindex="0" role="button">
+            <!-- Icon-Farben direkt inline oder über CSS anpassbar -->
+            <span class="category-icon" style="color: #0fb8cc;">🐟</span>
+            <span class="category-name" id="cat-seafood"></span>
+          </div>
+          <div class="category-card" tabindex="0" role="button">
+            <span class="category-icon" style="color: #39e03d;">🥗</span>
+            <span class="category-name" id="cat-salads"></span>
+          </div>
+          <div class="category-card" tabindex="0" role="button">
+            <span class="category-icon" style="color: #ff007f;">🧁</span>
+            <span class="category-name" id="cat-baking"></span>
+          </div>
+          <div class="category-card" tabindex="0" role="button">
+            <span class="category-icon" style="color: #ff9900;">🍴</span>
+            <span class="category-name" id="cat-mains"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gedanke des Tages (Wirkt wie auf deiner Vorlage) -->
+      <section class="thought-card">
+        <h4 class="thought-header">📖 <span id="thought-heading"></span></h4>
+        <p class="thought-quote" id="thought-quote"></p>
+        <p class="thought-ref" id="thought-ref"></p>
+      </section>
+    </main>
+
+    <!-- Container für die dynamisch geladene Navigationsleiste -->
+    <div id="navbar-container"></div>
+
+    <script src="js/navbar.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
