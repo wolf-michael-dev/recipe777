@@ -99,3 +99,26 @@ function applyOSTheme() {
 document.addEventListener("DOMContentLoaded", () => {
   applyOSTheme();
 });
+
+
+function applyOSTheme() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const forceTheme = urlParams.get('theme'); // Liest ?theme=... aus der URL
+
+  if (forceTheme === 'apple') {
+    document.body.classList.add("theme-apple");
+    return;
+  }
+  if (forceTheme === 'android') {
+    document.body.classList.add("theme-android");
+    return;
+  }
+
+  // Reguläre Erkennung
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  if (/iPad|iPhone|iPod|Macintosh/.test(userAgent)) {
+    document.body.classList.add("theme-apple");
+  } else {
+    document.body.classList.add("theme-android");
+  }
+}
