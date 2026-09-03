@@ -150,25 +150,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Öffnet oder schließt die Rezept-Details (Akkordeon)
 // Akkordeon-Buttons isoliert steuern und übersetzen
+// Akkordeon-Buttons isoliert steuern und sanft übersetzen
   const expandBtns = document.querySelectorAll(".expand-btn");
   
   expandBtns.forEach((btn) => {
-    // 1. Initiale Übersetzung beim Laden der Seite setzen
+    // Initiale Übersetzung beim Laden der Seite setzen
     btn.textContent = text.btnExpand;
 
-    // 2. Klick-Event für genau diesen einen Button
+    // Klick-Event für genau diesen einen Button
     btn.addEventListener("click", () => {
-      // Sucht nur den exakt nachfolgenden .card-details Container
       const details = btn.nextElementSibling;
       const isOpen = details.classList.contains("open");
 
-      if (isOpen) {
-        details.classList.remove("open");
-        btn.textContent = text.btnExpand; // Text wieder auf Zuklappen ändern
-      } else {
-        details.classList.add("open");
-        btn.textContent = text.btnCollapse; // Text auf Aufklappen ändern
-      }
+      // 1. Button-Text sanft ausblenden
+      btn.style.opacity = "0";
+
+      // 2. Warten bis er unsichtbar ist (150ms), dann Text tauschen
+      setTimeout(() => {
+        if (isOpen) {
+          details.classList.remove("open");
+          btn.textContent = text.btnExpand; // Text wieder auf Zuklappen ändern
+        } else {
+          details.classList.add("open");
+          btn.textContent = text.btnCollapse; // Text auf Aufklappen ändern
+        }
+        
+        // 3. Neuen Text sanft wieder einblenden
+        btn.style.opacity = "1";
+      }, 150); 
     });
   });
 

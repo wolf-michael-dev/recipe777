@@ -271,7 +271,8 @@ main {
   font-weight: 600;
   cursor: pointer;
   text-align: center;
-  transition: background-color 0.2s ease;
+  /* NEU: opacity hinzugefügt für das sanfte Ein- und Ausblenden */
+  transition: background-color 0.2s ease, opacity 0.15s ease-in-out;
 }
 
 .expand-btn:active {
