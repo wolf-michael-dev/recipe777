@@ -15,7 +15,9 @@ const translations = {
     catSalads: "Salate",
     catBaking: "Gebäck",
     catMains: "Hauptgerichte",
-    quoteHeading: "Gedanke des Tages"
+    quoteHeading: "Gedanke des Tages",
+    btnExpand: "Zutaten & Details ansehen ⬇",
+    btnCollapse: "Zutaten & Details schließen ⬆"
   },
   en: {
     langCode: "en",
@@ -30,7 +32,9 @@ const translations = {
     catSalads: "Salads",
     catBaking: "Bakery",
     catMains: "Main Dishes",
-    quoteHeading: "Thought of the Day"
+    quoteHeading: "Thought of the Day",
+    btnExpand: "View Ingredients & Details ⬇",
+    btnCollapse: "Close Ingredients & Details ⬆"
   },
   ru: {
     langCode: "ru",
@@ -45,7 +49,9 @@ const translations = {
     catSalads: "Салаты",
     catBaking: "Выпечка",
     catMains: "Главные блюда",
-    quoteHeading: "Мысль дня"
+    quoteHeading: "Мысль дня",
+    btnExpand: "Посмотреть ингредиенты и детали ⬇",
+    btnCollapse: "Скрыть ингредиенты и детали ⬆"
   }
 };
 
@@ -143,18 +149,28 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Öffnet oder schließt die Rezept-Details (Akkordeon)
-window.toggleAccordion = function(btn) {
-  const details = btn.nextElementSibling;
-  const isOpen = details.classList.contains("open");
+// Akkordeon-Buttons isoliert steuern und übersetzen
+  const expandBtns = document.querySelectorAll(".expand-btn");
   
-  if (isOpen) {
-    details.classList.remove("open");
-    btn.textContent = "Zutaten & Details ansehen ⬇";
-  } else {
-    details.classList.add("open");
-    btn.textContent = "Zutaten & Details schließen ⬆";
-  }
-};
+  expandBtns.forEach((btn) => {
+    // 1. Initiale Übersetzung beim Laden der Seite setzen
+    btn.textContent = text.btnExpand;
+
+    // 2. Klick-Event für genau diesen einen Button
+    btn.addEventListener("click", () => {
+      // Sucht nur den exakt nachfolgenden .card-details Container
+      const details = btn.nextElementSibling;
+      const isOpen = details.classList.contains("open");
+
+      if (isOpen) {
+        details.classList.remove("open");
+        btn.textContent = text.btnExpand; // Text wieder auf Zuklappen ändern
+      } else {
+        details.classList.add("open");
+        btn.textContent = text.btnCollapse; // Text auf Aufklappen ändern
+      }
+    });
+  });
 
 // Horizontales Scrollen per Mausrad für das Desktop-Karussell
   const carousel = document.querySelector(".carousel-container");

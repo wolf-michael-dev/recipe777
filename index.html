@@ -8,33 +8,31 @@
     <link rel="stylesheet" href="css/navbar.css" />
   </head>
   <body>
-
     <main>
-          <h1>Recipe777</h1>
+      <h1>Recipe777</h1>
 
       <!-- Begrüßungskopf -->
       <header class="welcome-header">
         <p id="welcome-message"></p>
       </header>
 
-<!-- Highlight-Karussell (Swipe) -->
+      <!-- Highlight-Karussell (Swipe) -->
       <section class="carousel-container">
-        
         <!-- Karte 1: Die Erdbeertorte -->
         <article class="recipe-card snap-card">
           <div class="card-image-wrapper">
             <img src="assets/images/torte.webp" alt="Torte" class="card-img" />
             <div class="card-overlay">
               <span class="badge" id="card-badge">Empfehlung</span>
-              <h2 class="card-title" id="card-title">Festliche Erdbeer-Mascarpone-Torte</h2>
+              <h2 class="card-title" id="card-title">
+                Festliche Erdbeer-Mascarpone-Torte
+              </h2>
             </div>
           </div>
-          
+
           <!-- Akkordeon-Button -->
-          <button class="expand-btn" type="button" onclick="toggleAccordion(this)">
-            Zutaten & Details ansehen ⬇
-          </button>
-          
+          <button class="expand-btn" type="button"></button>
+
           <!-- Ausklappbare Details (Akkordeon) -->
           <div class="card-details">
             <div class="details-content">
@@ -51,17 +49,26 @@
         <!-- Karte 2: Borschtsch (Vorbereitung für das spätere Backend) -->
         <article class="recipe-card snap-card">
           <div class="card-image-wrapper">
-            <img src="assets/images/borschtsch.webp" alt="Borschtsch" class="card-img" style="background: #2a2d33;" />
+            <img
+              src="assets/images/borschtsch.webp"
+              alt="Borschtsch"
+              class="card-img"
+              style="background: #2a2d33"
+            />
             <div class="card-overlay">
               <span class="badge">Klassiker</span>
               <h2 class="card-title">Traditioneller Borschtsch</h2>
             </div>
           </div>
-          
-          <button class="expand-btn" type="button" onclick="toggleAccordion(this)">
+
+          <button
+            class="expand-btn"
+            type="button"
+            onclick="toggleAccordion(this)"
+          >
             Zutaten & Details ansehen ⬇
           </button>
-          
+
           <div class="card-details">
             <div class="details-content">
               <p><strong>Zeit:</strong> 45 Min.</p>
@@ -73,7 +80,6 @@
             </div>
           </div>
         </article>
-
       </section>
 
       <!-- Kategorien -->
@@ -83,19 +89,19 @@
         <div class="categories-grid">
           <div class="category-card" tabindex="0" role="button">
             <!-- Icon-Farben direkt inline oder über CSS anpassbar -->
-            <span class="category-icon" style="color: #0fb8cc;">🐟</span>
+            <span class="category-icon" style="color: #0fb8cc">🐟</span>
             <span class="category-name" id="cat-seafood"></span>
           </div>
           <div class="category-card" tabindex="0" role="button">
-            <span class="category-icon" style="color: #39e03d;">🥗</span>
+            <span class="category-icon" style="color: #39e03d">🥗</span>
             <span class="category-name" id="cat-salads"></span>
           </div>
           <div class="category-card" tabindex="0" role="button">
-            <span class="category-icon" style="color: #ff007f;">🧁</span>
+            <span class="category-icon" style="color: #ff007f">🧁</span>
             <span class="category-name" id="cat-baking"></span>
           </div>
           <div class="category-card" tabindex="0" role="button">
-            <span class="category-icon" style="color: #ff9900;">🍴</span>
+            <span class="category-icon" style="color: #ff9900">🍴</span>
             <span class="category-name" id="cat-mains"></span>
           </div>
         </div>
