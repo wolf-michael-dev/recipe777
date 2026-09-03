@@ -12,7 +12,10 @@ const translations = {
     btnShare: "Teilen",
     categoriesTitle: "Kategorien",
     catFish: "Fisch & Meeresfrüchte",
-    catSalads: "Salate"
+    catSalads: "Salate",
+    catBaking: "Gebäck",
+    catMains: "Hauptgerichte",
+    quoteHeading: "Gedanke des Tages"
   },
   en: {
     langCode: "en",
@@ -24,7 +27,10 @@ const translations = {
     btnShare: "Share",
     categoriesTitle: "Categories",
     catFish: "Fish & Seafood",
-    catSalads: "Salads"
+    catSalads: "Salads",
+    catBaking: "Bakery",
+    catMains: "Main Dishes",
+    quoteHeading: "Thought of the Day"
   },
   ru: {
     langCode: "ru",
@@ -36,74 +42,55 @@ const translations = {
     btnShare: "Поделиться",
     categoriesTitle: "Категории",
     catFish: "Рыба и Морепродукты",
-    catSalads: "Салаты"
+    catSalads: "Салаты",
+    catBaking: "Выпечка",
+    catMains: "Главные блюда",
+    quoteHeading: "Мысль дня"
   }
 };
 
-// 2. Sprache ermitteln (Fallback auf Englisch)
+const dailyVerses = [
+  {
+    de: { text: "„Wir wissen aber, dass denen, die Gott lieben, alle Dinge zum Besten dienen.“", ref: "Römer 8:28" },
+    en: { text: "“And we know that in all things God works for the good of those who love him.”", ref: "Romans 8:28" },
+    ru: { text: "«Любящим Бога, призванным по Его изволению, все содействует ко благу.»", ref: "Римлянам 8:28" }
+  },
+  {
+    de: { text: "„Der Herr ist mein Hirte, mir wird nichts mangeln.“", ref: "Psalm 23:1" },
+    en: { text: "“The Lord is my shepherd, I lack nothing.”", ref: "Psalm 23:1" },
+    ru: { text: "«Господь — Пастырь мой; я ни в чем не буду нуждаться.»", ref: "Псалом 22:1" }
+  },
+  {
+    de: { text: "„Alle eure Dinge lasst in der Liebe geschehen!“", ref: "1. Korinther 16:14" },
+    en: { text: "“Do everything in love.”", ref: "1 Corinthians 16:14" },
+    ru: { text: "«Все у вас да будет с любовью.»", ref: "1 Коринфянам 16:14" }
+  },
+  {
+    de: { text: "„Befiehl dem Herrn deine Wege und hoffe auf ihn, er wird's wohlmachen.“", ref: "Psalm 37:5" },
+    en: { text: "“Commit your way to the Lord; trust in him and he will do this.”", ref: "Psalm 37:5" },
+    ru: { text: "«Предай Господу путь твой и уповай на Него, и Он совершит.»", ref: "Псалом 36:5" }
+  },
+  {
+    de: { text: "„Gott ist unsere Zuversicht und Stärke, eine Hilfe in den großen Nöten.“", ref: "Psalm 46:2" },
+    en: { text: "“God is our refuge and strength, an ever-present help in trouble.”", ref: "Psalm 46:1" },
+    ru: { text: "«Бог нам прибежище и сила, скорый помощник в бедах.»", ref: "Псалом 45:2" }
+  }
+];
+
+// 2. Sprache ermitteln
 const userLang = navigator.language.slice(0, 2).toLowerCase();
 const lang = translations[userLang] ? userLang : "en";
 const text = translations[lang];
 
-// 3. Hilfsfunktion zum sicheren Setzen von Element-Texten
 const setText = (id, value) => {
   const el = document.getElementById(id);
   if (el) el.textContent = value;
 };
 
-// 4. Texte im DOM aktualisieren
-document.addEventListener("DOMContentLoaded", () => {
-  document.documentElement.lang = text.langCode;
-
-  setText("welcome-message", text.welcome);
-  setText("card-badge", text.badge);
-  setText("card-title", text.recipeTitle);
-  setText("btn-fav", text.btnFav);
-  setText("btn-options", text.btnOptions);
-  setText("btn-share", text.btnShare);
-  setText("categories-title", text.categoriesTitle);
-  setText("cat-fish", text.catFish);
-  setText("cat-salads", text.catSalads);
-  // Vorhandene IDs
-  setText("categories-title", text.categoriesTitle);
-  
-  // Neue Kategorien
-  setText("cat-seafood", text.catFish);
-  setText("cat-salads", text.catSalads);
-  setText("cat-baking", text.catBaking);
-  setText("cat-mains", text.catMains);
-
-  // Gedanke des Tages
-  setText("thought-heading", text.quoteHeading);
-  setText("thought-quote", text.quoteBody);
-  setText("thought-ref", text.quoteRef);
-  
-});
-
-
-// 5. Betriebssystem erkennen (Material You vs. Apple Cupertino)
-function applyOSTheme() {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  
-  if (/android/i.test(userAgent)) {
-    document.body.classList.add("theme-android");
-  } else if (/iPad|iPhone|iPod|Macintosh/.test(userAgent)) {
-    document.body.classList.add("theme-apple");
-  } else {
-    // Fallback für Windows/Linux-Desktops
-    document.body.classList.add("theme-android"); 
-  }
-}
-
-// Direkt beim Laden ausführen
-document.addEventListener("DOMContentLoaded", () => {
-  applyOSTheme();
-});
-
-
+// 3. Betriebssystem erkennen (Material You vs. Apple)
 function applyOSTheme() {
   const urlParams = new URLSearchParams(window.location.search);
-  const forceTheme = urlParams.get('theme'); // Liest ?theme=... aus der URL
+  const forceTheme = urlParams.get('theme');
 
   if (forceTheme === 'apple') {
     document.body.classList.add("theme-apple");
@@ -114,7 +101,6 @@ function applyOSTheme() {
     return;
   }
 
-  // Reguläre Erkennung
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   if (/iPad|iPhone|iPod|Macintosh/.test(userAgent)) {
     document.body.classList.add("theme-apple");
@@ -122,3 +108,36 @@ function applyOSTheme() {
     document.body.classList.add("theme-android");
   }
 }
+
+// 4. Skript ausführen, sobald die Seite geladen ist
+document.addEventListener("DOMContentLoaded", () => {
+  applyOSTheme();
+  document.documentElement.lang = text.langCode;
+
+  // Statische Texte setzen
+  setText("welcome-message", text.welcome);
+  setText("card-badge", text.badge);
+  setText("card-title", text.recipeTitle);
+  setText("btn-fav", text.btnFav);
+  setText("btn-options", text.btnOptions);
+  setText("btn-share", text.btnShare);
+  setText("categories-title", text.categoriesTitle);
+  setText("cat-seafood", text.catFish);
+  setText("cat-salads", text.catSalads);
+  setText("cat-baking", text.catBaking);
+  setText("cat-mains", text.catMains);
+  setText("thought-heading", text.quoteHeading);
+
+  // Dynamischen Vers des Tages berechnen
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+  const oneDay = 1000 * 60 * 60 * 24;
+  const dayOfYear = Math.floor(diff / oneDay);
+
+  const verseIndex = dayOfYear % dailyVerses.length;
+  const verseOfTheDay = dailyVerses[verseIndex][lang]; 
+
+  setText("thought-quote", verseOfTheDay.text);
+  setText("thought-ref", verseOfTheDay.ref);
+});
