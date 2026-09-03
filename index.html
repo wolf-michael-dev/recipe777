@@ -17,32 +17,64 @@
         <p id="welcome-message"></p>
       </header>
 
-      <!-- Highlight-Karte -->
-      <article class="recipe-card featured-card">
-        <div class="card-image-wrapper">
-          <img src="assets/images/torte.webp" alt="Torte" class="card-img" />
-          <div class="card-overlay">
-            <span class="badge" id="card-badge"></span>
-            <h2 class="card-title" id="card-title"></h2>
+<!-- Highlight-Karussell (Swipe) -->
+      <section class="carousel-container">
+        
+        <!-- Karte 1: Die Erdbeertorte -->
+        <article class="recipe-card snap-card">
+          <div class="card-image-wrapper">
+            <img src="assets/images/torte.webp" alt="Torte" class="card-img" />
+            <div class="card-overlay">
+              <span class="badge" id="card-badge">Empfehlung</span>
+              <h2 class="card-title" id="card-title">Festliche Erdbeer-Mascarpone-Torte</h2>
+            </div>
           </div>
-        </div>
+          
+          <!-- Akkordeon-Button -->
+          <button class="expand-btn" type="button" onclick="toggleAccordion(this)">
+            Zutaten & Details ansehen ⬇
+          </button>
+          
+          <!-- Ausklappbare Details (Akkordeon) -->
+          <div class="card-details">
+            <div class="details-content">
+              <p><strong>Zeit:</strong> 45 Min.</p>
+              <ul>
+                <li>500g Erdbeeren</li>
+                <li>250g Mascarpone</li>
+                <li>100g Zucker</li>
+              </ul>
+            </div>
+          </div>
+        </article>
 
-        <!-- Aktions-Buttons -->
-        <div class="card-actions">
-          <div class="action-item">
-            <button class="action-btn" type="button" aria-label="Favorit">❤️</button>
-            <span class="action-label" id="btn-fav"></span>
+        <!-- Karte 2: Borschtsch (Vorbereitung für das spätere Backend) -->
+        <article class="recipe-card snap-card">
+          <div class="card-image-wrapper">
+            <img src="assets/images/borschtsch.webp" alt="Borschtsch" class="card-img" style="background: #2a2d33;" />
+            <div class="card-overlay">
+              <span class="badge">Klassiker</span>
+              <h2 class="card-title">Traditioneller Borschtsch</h2>
+            </div>
           </div>
-          <div class="action-item">
-            <button class="action-btn" type="button" aria-label="Optionen">⚙️</button>
-            <span class="action-label" id="btn-options"></span>
+          
+          <button class="expand-btn" type="button" onclick="toggleAccordion(this)">
+            Zutaten & Details ansehen ⬇
+          </button>
+          
+          <div class="card-details">
+            <div class="details-content">
+              <p><strong>Zeit:</strong> 45 Min.</p>
+              <ul>
+                <li>Rote Bete</li>
+                <li>Kartoffeln</li>
+                <li>Kohl</li>
+              </ul>
+            </div>
           </div>
-          <div class="action-item">
-            <button class="action-btn" type="button" aria-label="Teilen">🔗</button>
-            <span class="action-label" id="btn-share"></span>
-          </div>
-        </div>
-      </article>
+        </article>
+
+      </section>
 
       <!-- Kategorien -->
       <!-- 4 Kategorien-Raster (komplett) -->

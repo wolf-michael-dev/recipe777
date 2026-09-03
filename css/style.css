@@ -230,3 +230,91 @@ main {
   background-color: #1e2126;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+
+/* 1. Swipe-Karussell */
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 16px;
+  padding-bottom: 12px;
+  /* Versteckt den Scrollbalken für einen sauberen App-Look */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-card {
+  min-width: 90%; /* Karte füllt fast den ganzen Bildschirm, lässt die nächste Karte leicht anblitzen */
+  scroll-snap-align: center;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #17191d;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+/* 2. Akkordeon-Button */
+.expand-btn {
+  background-color: #1a1c20;
+  color: #0a84ff;
+  border: none;
+  padding: 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.expand-btn:active {
+  background-color: #22252a;
+}
+
+/* 3. Ausklappbarer Bereich */
+.card-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-details.open {
+  grid-template-rows: 1fr;
+}
+
+.details-content {
+  overflow: hidden;
+  padding: 0 16px; /* Horizontaler Abstand */
+}
+
+/* Etwas Abstand, wenn das Akkordeon offen ist */
+.card-details.open .details-content {
+  padding: 8px 16px 24px 16px;
+}
+
+.details-content p {
+  color: #9ca3af;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.details-content ul {
+  list-style-type: none;
+  color: #e5e7eb;
+}
+
+.details-content li {
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.95rem;
+}
+
+.details-content li:last-child {
+  border-bottom: none;
+}

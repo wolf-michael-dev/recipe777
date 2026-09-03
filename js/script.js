@@ -141,3 +141,17 @@ document.addEventListener("DOMContentLoaded", () => {
   setText("thought-quote", verseOfTheDay.text);
   setText("thought-ref", verseOfTheDay.ref);
 });
+
+// Öffnet oder schließt die Rezept-Details (Akkordeon)
+window.toggleAccordion = function(btn) {
+  const details = btn.nextElementSibling;
+  const isOpen = details.classList.contains("open");
+  
+  if (isOpen) {
+    details.classList.remove("open");
+    btn.textContent = "Zutaten & Details ansehen ⬇";
+  } else {
+    details.classList.add("open");
+    btn.textContent = "Zutaten & Details schließen ⬆";
+  }
+};
