@@ -1,16 +1,72 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recipe777 - Recipes</title>
+    <title>Recipe777 - Kategorien</title>
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/navbar.css" />
+    <link rel="stylesheet" href="../css/recipes.css" />
   </head>
   <body>
+    <main class="recipes-page">
+      <!-- Suchleiste -->
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="search-input" placeholder="Поиск..." />
+      </div>
 
+      <!-- Vertikale Kategorien-Liste -->
+      <div class="category-list">
+        
+        <!-- Kachel 1 -->
+        <a href="#" class="list-item">
+          <div class="item-info">
+            <h3 class="item-title">Главные блюда</h3>
+            <span class="item-count" style="color: #f59e0b;">4 рецепта</span>
+          </div>
+          <div class="item-icon" style="background-color: rgba(245, 158, 11, 0.15); color: #f59e0b;">
+            🍴
+          </div>
+        </a>
 
+        <!-- Kachel 2 -->
+        <a href="#" class="list-item">
+          <div class="item-info">
+            <h3 class="item-title">Супы и Похлебки</h3>
+            <span class="item-count" style="color: #ef4444;">2 рецепта</span>
+          </div>
+          <div class="item-icon" style="background-color: rgba(239, 68, 68, 0.15); color: #ef4444;">
+            🥣
+          </div>
+        </a>
 
+        <!-- Kachel 3 -->
+        <a href="#" class="list-item">
+          <div class="item-info">
+            <h3 class="item-title">Рыба и Морепродукты</h3>
+            <span class="item-count" style="color: #0fb8cc;">0 рецептов</span>
+          </div>
+          <div class="item-icon" style="background-color: rgba(15, 184, 204, 0.15); color: #0fb8cc;">
+            🐟
+          </div>
+        </a>
+
+        <!-- Kachel 4 -->
+        <a href="#" class="list-item">
+          <div class="item-info">
+            <h3 class="item-title">Паста и Рис</h3>
+            <span class="item-count" style="color: #9ca3af;">0 рецептов</span>
+          </div>
+          <div class="item-icon" style="background-color: rgba(156, 163, 175, 0.15); color: #9ca3af;">
+            🍝
+          </div>
+        </a>
+
+      </div>
+    </main>
+
+    <!-- Navigationsleiste -->
     <div id="navbar-container"></div>
     <script src="../js/navbar.js"></script>
     <script src="../js/script.js"></script>

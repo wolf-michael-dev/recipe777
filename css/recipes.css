@@ -1,0 +1,107 @@
+/* =========================================
+   RECIPES PAGE (Listen-Ansicht)
+   ========================================= */
+.recipes-page {
+  padding: 24px 20px;
+  padding-bottom: 120px; /* Platz für die Navbar */
+}
+
+/* Suchleiste */
+.search-container {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  opacity: 0.7;
+}
+
+.search-input {
+  width: 100%;
+  background-color: #17191d;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 14px 16px 14px 44px;
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #0a84ff;
+}
+
+.search-input::placeholder {
+  color: #6b7280;
+}
+
+/* Listen-Kacheln */
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #17191d;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  padding: 18px 20px;
+  text-decoration: none;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.list-item:active {
+  transform: scale(0.97);
+  background-color: #22262d;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.item-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.item-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Runde Icons rechts */
+.item-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+/* Theme Anpassungen (Apple / Android) */
+.theme-apple .list-item {
+  background-color: rgba(23, 25, 29, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-android .list-item {
+  border-radius: 16px;
+  border: none;
+  background-color: #1e2126;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
