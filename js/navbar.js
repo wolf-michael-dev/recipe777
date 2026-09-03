@@ -14,7 +14,8 @@ function slideTo(item) {
   }
 
   indicator.style.width = `${width}px`;
-  indicator.style.transform = `translateX(${left}px)`;
+  // Der Wert -50% ist entscheidend, damit die Pille vertikal zentriert bleibt!
+  indicator.style.transform = `translate(${left}px, -50%)`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {

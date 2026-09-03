@@ -23,7 +23,8 @@
 .nav-indicator {
   position: absolute;
   left: 0;
-  z-index: 1; /* Bleibt im Hintergrund */
+  top: 50%; /* Zwingt den Rahmen exakt in die vertikale Mitte */
+  z-index: 1; 
 }
 
 
@@ -54,7 +55,6 @@
 
 /* Apple Indikator: Umrandet wie ein Button */
 .theme-apple .nav-indicator {
-  top: 8px;
   height: 48px;
   border-radius: 50%;
   border: 2px solid #0a84ff;
@@ -100,8 +100,16 @@
 
 /* Android Indikator: Die typische Pille im Hintergrund */
 .theme-android .nav-indicator {
-  top: 8px;
   height: 32px;
   border-radius: 16px;
   background-color: #004a77;
+}
+
+.theme-android .nav-item.active svg {
+  background-color: transparent;
+  padding: 4px 16px;
+  border-radius: 16px;
+  width: 56px;
+  height: 32px;
+  box-sizing: border-box;
 }
