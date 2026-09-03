@@ -46,6 +46,7 @@ main {
   position: relative;
   width: 100%;
   height: 280px;
+  flex-shrink: 0; /* ZWINGEND: Verhindert, dass das Bild zerquetscht wird */
   border-radius: 20px;
   overflow: hidden;
 }
@@ -239,7 +240,7 @@ main {
   scroll-snap-type: x mandatory;
   gap: 16px;
   padding-bottom: 12px;
-  /* Versteckt den Scrollbalken für einen sauberen App-Look */
+  align-items: flex-start; /* ZWINGEND: Verhindert, dass die zweite Karte sich mitstreckt */
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
