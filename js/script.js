@@ -155,3 +155,18 @@ window.toggleAccordion = function(btn) {
     btn.textContent = "Zutaten & Details schließen ⬆";
   }
 };
+
+// Horizontales Scrollen per Mausrad für das Desktop-Karussell
+  const carousel = document.querySelector(".carousel-container");
+  if (carousel) {
+    carousel.addEventListener("wheel", (evt) => {
+      // Verhindert, dass die ganze Seite nach unten scrollt
+      evt.preventDefault();
+      
+      // Scrollt stattdessen sanft zur Seite (300px entspricht etwa einer Karte)
+      carousel.scrollBy({
+        left: evt.deltaY > 0 ? 300 : -300,
+        behavior: "smooth"
+      });
+    }, { passive: false }); // Wichtig, damit preventDefault() im Browser erlaubt ist
+  }

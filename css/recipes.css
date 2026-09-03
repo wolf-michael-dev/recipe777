@@ -1,12 +1,12 @@
 /* =========================================
-   RECIPES PAGE (Listen-Ansicht)
+   RECIPES PAGE (Listen-Ansicht - Gemeinsame Basis)
    ========================================= */
 .recipes-page {
   padding: 24px 20px;
-  padding-bottom: 120px; /* Platz für die Navbar */
+  padding-bottom: 120px;
 }
 
-/* Suchleiste */
+/* Suchleiste - Basis */
 .search-container {
   position: relative;
   margin-bottom: 32px;
@@ -19,29 +19,23 @@
   transform: translateY(-50%);
   font-size: 1.1rem;
   opacity: 0.7;
+  z-index: 2;
 }
 
 .search-input {
   width: 100%;
-  background-color: #17191d;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px;
   padding: 14px 16px 14px 44px;
   color: #ffffff;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.search-input:focus {
-  border-color: #0a84ff;
+  transition: all 0.2s ease;
 }
 
 .search-input::placeholder {
-  color: #6b7280;
+  color: #8e8e93;
 }
 
-/* Listen-Kacheln */
+/* Listen-Kacheln - Basis */
 .category-list {
   display: flex;
   flex-direction: column;
@@ -52,9 +46,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #17191d;
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  border-radius: 20px;
   padding: 18px 20px;
   text-decoration: none;
   transition: transform 0.1s ease, background-color 0.2s ease;
@@ -62,7 +53,6 @@
 
 .list-item:active {
   transform: scale(0.97);
-  background-color: #22262d;
 }
 
 .item-info {
@@ -82,7 +72,6 @@
   font-weight: 600;
 }
 
-/* Runde Icons rechts */
 .item-icon {
   width: 44px;
   height: 44px;
@@ -93,15 +82,53 @@
   font-size: 1.25rem;
 }
 
-/* Theme Anpassungen (Apple / Android) */
+/* =========================================
+   APPLE DESIGN (iOS / macOS)
+   ========================================= */
+/* Apple Suchleiste: Leicht abgerundet, halbtransparent (iOS typisch) */
+.theme-apple .search-input {
+  background-color: rgba(118, 118, 128, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.theme-apple .search-input:focus {
+  background-color: rgba(118, 118, 128, 0.35);
+}
+
+/* Apple Kacheln: Feine Ränder, etwas mehr Transparenz */
 .theme-apple .list-item {
   background-color: rgba(23, 25, 29, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
 }
 
-.theme-android .list-item {
-  border-radius: 16px;
-  border: none;
+.theme-apple .list-item:active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================
+   ANDROID DESIGN (Material You / MD3)
+   ========================================= */
+/* Android Suchleiste: Große, pillenförmige Rundung (Squircle-Look) */
+.theme-android .search-input {
   background-color: #1e2126;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 28px;
+}
+
+.theme-android .search-input:focus {
+  background-color: #2a2d33;
+}
+
+/* Android Kacheln: Keine Ränder, dafür organische Rundung und sanfte Schatten */
+.theme-android .list-item {
+  background-color: #1e2126;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.theme-android .list-item:active {
+  background-color: #2a2d33;
 }
