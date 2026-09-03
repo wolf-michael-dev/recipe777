@@ -9,21 +9,25 @@
 }
 
 .nav-item {
+  position: relative;
+  z-index: 2; /* Hält Icons über dem Indikator */
   color: #6c757d;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  transition: all 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
 }
 
-.nav-item svg {
-  width: 24px;
-  height: 24px;
-  display: block;
+/* Der universelle Indikator (Grundgerüst) */
+.nav-indicator {
+  position: absolute;
+  left: 0;
+  z-index: 1; /* Bleibt im Hintergrund */
 }
 
-/* --- Apple Navigation (Milchglas & Schwebend) --- */
+
+/* --- Apple Navigation --- */
 .theme-apple .bottom-nav {
   bottom: 20px;
   left: 50%;
@@ -45,11 +49,21 @@
 }
 
 .theme-apple .nav-item.active {
-  color: #0a84ff; /* Typisches iOS Blue im Dark Mode */
-  background-color: transparent;
+  color: #0a84ff;
 }
 
-/* --- Android Navigation (Material You MD3) --- */
+/* Apple Indikator: Umrandet wie ein Button */
+.theme-apple .nav-indicator {
+  top: 8px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #0a84ff;
+  background-color: rgba(10, 132, 255, 0.15);
+  box-sizing: border-box;
+}
+
+
+/* --- Android Navigation (Material You) --- */
 .theme-android body {
   padding-bottom: 90px;
 }
@@ -59,10 +73,10 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 800px; /* Verhindert das Ausstrecken am PC */
+  max-width: 800px;
   height: 80px;
   background-color: #17191d;
-  border-radius: 24px 24px 0 0; /* Oben sanft abgerundet */
+  border-radius: 24px 24px 0 0;
   box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
 }
 
@@ -73,15 +87,21 @@
   flex-direction: column;
 }
 
+.theme-android .nav-item svg {
+  width: 56px;
+  height: 32px;
+  padding: 4px 16px;
+  box-sizing: border-box;
+}
+
 .theme-android .nav-item.active {
   color: #c2e7ff;
 }
 
-.theme-android .nav-item.active svg {
-  background-color: #004a77;
-  padding: 4px 16px;
-  border-radius: 16px;
-  width: 56px;
+/* Android Indikator: Die typische Pille im Hintergrund */
+.theme-android .nav-indicator {
+  top: 8px;
   height: 32px;
-  box-sizing: border-box;
+  border-radius: 16px;
+  background-color: #004a77;
 }
