@@ -16,18 +16,35 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const recipe = await response.json();
 
-    // Titel & Meta-Werte setzen
+    // 1. Titel & Meta-Werte setzen
     document.getElementById("detail-title").textContent = recipe.title;
     document.getElementById("detail-time").textContent =
       `${recipe.prepTime} Min.`;
     document.getElementById("detail-portions").textContent =
       `${recipe.portions || 4} Pers.`;
 
-    // Bild setzen
+    // 2. Erstellungsdatum formatiert anzeigen
+    const dateEl = document.getElementById("detail-date");
+    if (dateEl) {
+      if (recipe.createdAt) {
+        const dateObj = new Date(recipe.createdAt.replace(" ", "T"));
+        dateEl.textContent = !isNaN(dateObj)
+          ? dateObj.toLocaleDateString("de-DE", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })
+          : recipe.createdAt;
+      } else {
+        dateEl.textContent = "Kein Datum vorhanden";
+      }
+    }
+
+    // 3. Bild setzen
     const imgEl = document.getElementById("detail-img");
     imgEl.src = recipe.imageUrl || "../assets/images/torte.webp";
 
-    // Zutaten-Raster aufbauen
+    // 4. Zutaten-Raster aufbauen
     const ingredientsContainer = document.getElementById("detail-ingredients");
     if (Array.isArray(recipe.ingredients) && recipe.ingredients.length > 0) {
       ingredientsContainer.innerHTML = recipe.ingredients
@@ -35,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         .join("");
     }
 
-    // Zubereitungsschritte aufbauen
+    // 5. Zubereitungsschritte aufbauen
     const instructionsContainer = document.getElementById(
       "detail-instructions",
     );
@@ -54,44 +71,46 @@ document.addEventListener("DOMContentLoaded", async () => {
         )
         .join("");
     }
+
+    // 6. Admin-Buttons aktivieren
+    const token = localStorage.getItem("adminToken");
+    const editBtn = document.getElementById("edit-btn");
+    const deleteBtn = document.getElementById("delete-btn");
+
+    if (token) {
+      // Stift-Button verlinkt auf das umbenannte Admin-Panel
+      if (editBtn) {
+        editBtn.style.display = "flex";
+        editBtn.href = `admin.html?edit=${recipe.id}`;
+      }
+
+      // Lösch-Button
+      if (deleteBtn) {
+        deleteBtn.style.display = "flex";
+        deleteBtn.onclick = async () => {
+          if (!confirm("Rezept wirklich unwiderruflich löschen?")) return;
+          try {
+            const res = await fetch(
+              `http://localhost:3000/api/recipes/${recipe.id}`,
+              {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` },
+              },
+            );
+            if (res.ok) {
+              window.location.href = "recipes.html";
+            } else {
+              alert("Fehler beim Löschen");
+            }
+          } catch (e) {
+            alert("Verbindungsfehler beim Löschen");
+          }
+        };
+      }
+    }
   } catch (error) {
     console.error("Fehler beim Laden:", error);
     document.getElementById("detail-title").textContent =
       "Fehler beim Laden des Rezepts";
   }
 });
-
-// Erstellungsdatum formatiert anzeigen (z. B. 04.09.2026)
-    if (recipe.createdAt) {
-      const date = new Date(recipe.createdAt);
-      document.getElementById("detail-date").textContent = date.toLocaleDateString("de-DE", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric"
-      });
-    } else {
-      document.getElementById("detail-date").textContent = "Unbekannt";
-    }
-
-    // Admin-Buttons aktivieren
-    const token = localStorage.getItem("adminToken");
-    const editBtn = document.getElementById("edit-btn");
-    const deleteBtn = document.getElementById("delete-btn");
-
-    if (token) {
-      if (editBtn) {
-        editBtn.style.display = "flex";
-        editBtn.href = `add-recipe.html?edit=${recipe.id}`;
-      }
-      if (deleteBtn) {
-        deleteBtn.style.display = "flex";
-        deleteBtn.onclick = async () => {
-          if (!confirm("Rezept wirklich löschen?")) return;
-          const res = await fetch(`http://localhost:3000/api/recipes/${recipe.id}`, {
-            method: "DELETE",
-            headers: { Authorization: `Bearer ${token}` }
-          });
-          if (res.ok) window.location.href = "recipes.html";
-        };
-      }
-    }
