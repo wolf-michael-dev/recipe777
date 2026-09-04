@@ -170,3 +170,12 @@ input[type="file"]::file-selector-button:hover {
   cursor: not-allowed;
   transform: none;
 }
+
+/* Garantiert feste Verankerung der Leiste am unteren Bildschirmrand */
+.bottom-nav {
+  position: fixed !important;
+  bottom: 20px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 9999 !important;
+}
