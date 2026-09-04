@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem("adminToken");
 
-  // Nicht eingeloggt -> sofort wegschicken
   if (!token) {
     alert("Zugriff verweigert: Nur für Administratoren!");
     window.location.href = "login.html";
@@ -11,8 +10,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   const categorySelect = document.getElementById("category");
   const form = document.getElementById("recipe-form");
   const submitBtn = document.getElementById("submit-btn");
+  const adminRecipeList = document.getElementById("admin-recipe-list");
+  const headerTitle = document.querySelector("h1");
 
-  // Kategorien für das Dropdown laden
+  // Prüfen, ob wir im Bearbeiten-Modus sind
+  const urlParams = new URLSearchParams(window.location.search);
+  const editId = urlParams.get("edit");
+
+  // 1. Kategorien laden
   try {
     const res = await fetch("http://localhost:3000/api/categories");
     const categories = await res.json();
@@ -23,7 +28,88 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Kategorien konnten nicht geladen werden", err);
   }
 
-  // Formular absenden mit Token-Validierung
+  // 2. Falls Bearbeiten: Bestehende Daten in Felder eintragen
+  if (editId) {
+    if (headerTitle) headerTitle.textContent = "Rezept bearbeiten";
+    submitBtn.textContent = "Änderungen speichern";
+
+    try {
+      const res = await fetch(`http://localhost:3000/api/recipes/${editId}`);
+      const recipe = await res.json();
+
+      document.getElementById("title").value = recipe.title;
+      document.getElementById("prepTime").value = recipe.prepTime;
+      document.getElementById("portions").value = recipe.portions || 4;
+      categorySelect.value = recipe.category;
+      document.getElementById("ingredients").value = recipe.ingredients.join(", ");
+      document.getElementById("instructions").value = recipe.instructions
+        .map((step) => step.text)
+        .join("\n");
+    } catch (e) {
+      alert("Fehler beim Laden des Rezepts zum Bearbeiten");
+    }
+  }
+
+  // 3. Bestehende Rezepte für die Liste laden
+  async function loadAdminRecipes() {
+    if (!adminRecipeList) return;
+    try {
+      const res = await fetch("http://localhost:3000/api/recipes");
+      const recipes = await res.json();
+
+      if (recipes.length === 0) {
+        adminRecipeList.innerHTML = "<p style='color: #9ca3af;'>Keine Rezepte vorhanden.</p>";
+        return;
+      }
+
+      adminRecipeList.innerHTML = recipes
+        .map(
+          (r) => `
+        <div style="background: #17191d; border: 1px solid rgba(255,255,255,0.06); padding: 14px 16px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <strong style="font-size: 1rem; color: #fff; display: block;">${r.title}</strong>
+            <span style="font-size: 0.8rem; color: #9ca3af;">${r.prepTime} Min. • ${r.category}</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <a href="add-recipe.html?edit=${r.id}" style="background: rgba(15, 184, 204, 0.15); border: 1px solid rgba(15, 184, 204, 0.3); color: #0fb8cc; padding: 8px 12px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 0.85rem;">
+              Bearbeiten
+            </a>
+            <button onclick="deleteRecipe(${r.id})" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 0.85rem;">
+              Löschen
+            </button>
+          </div>
+        </div>
+      `
+        )
+        .join("");
+    } catch (err) {
+      adminRecipeList.innerHTML = "<p style='color: #ef4444;'>Fehler beim Laden der Rezepte.</p>";
+    }
+  }
+
+  loadAdminRecipes();
+
+  // 4. Löschen-Funktion
+  window.deleteRecipe = async (id) => {
+    if (!confirm("Möchtest du dieses Rezept wirklich dauerhaft löschen?")) return;
+
+    try {
+      const res = await fetch(`http://localhost:3000/api/recipes/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      if (res.ok) {
+        loadAdminRecipes();
+      } else {
+        alert("Löschen fehlgeschlagen.");
+      }
+    } catch (err) {
+      alert("Serverfehler beim Löschen.");
+    }
+  };
+
+  // 5. Speichern oder Aktualisieren absenden
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
@@ -59,32 +145,28 @@ document.addEventListener("DOMContentLoaded", async () => {
       formData.append("image", imageFile);
     }
 
+    const endpoint = editId
+      ? `http://localhost:3000/api/recipes/${editId}`
+      : "http://localhost:3000/api/recipes";
+
+    const httpMethod = editId ? "PUT" : "POST";
+
     try {
-      const response = await fetch("http://localhost:3000/api/recipes", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`, // Admin-Token mitsenden
-        },
-        body: formData,
+      const response = await fetch(endpoint, {
+        method: httpMethod,
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData
       });
 
-      if (!response.ok) {
-        if (response.status === 401 || response.status === 403) {
-          alert("Sitzung abgelaufen oder ungültig. Bitte neu anmelden.");
-          localStorage.removeItem("adminToken");
-          window.location.href = "login.html";
-          return;
-        }
-        throw new Error("Fehler beim Speichern");
-      }
+      if (!response.ok) throw new Error("Fehler beim Speichern");
 
-      const data = await response.json();
-      window.location.href = `recipe-detail.html?id=${data.id}`;
+      alert(editId ? "Rezept erfolgreich aktualisiert!" : "Rezept erfolgreich erstellt!");
+      window.location.href = `recipe-detail.html?id=${editId || (await response.json()).id}`;
     } catch (err) {
       alert("Fehler beim Speichern des Rezepts");
       console.error(err);
       submitBtn.disabled = false;
-      submitBtn.textContent = "Speichern";
+      submitBtn.textContent = editId ? "Änderungen speichern" : "Speichern";
     }
   });
 });

@@ -60,3 +60,38 @@ document.addEventListener("DOMContentLoaded", async () => {
       "Fehler beim Laden des Rezepts";
   }
 });
+
+// Erstellungsdatum formatiert anzeigen (z. B. 04.09.2026)
+    if (recipe.createdAt) {
+      const date = new Date(recipe.createdAt);
+      document.getElementById("detail-date").textContent = date.toLocaleDateString("de-DE", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      });
+    } else {
+      document.getElementById("detail-date").textContent = "Unbekannt";
+    }
+
+    // Admin-Buttons aktivieren
+    const token = localStorage.getItem("adminToken");
+    const editBtn = document.getElementById("edit-btn");
+    const deleteBtn = document.getElementById("delete-btn");
+
+    if (token) {
+      if (editBtn) {
+        editBtn.style.display = "flex";
+        editBtn.href = `add-recipe.html?edit=${recipe.id}`;
+      }
+      if (deleteBtn) {
+        deleteBtn.style.display = "flex";
+        deleteBtn.onclick = async () => {
+          if (!confirm("Rezept wirklich löschen?")) return;
+          const res = await fetch(`http://localhost:3000/api/recipes/${recipe.id}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          if (res.ok) window.location.href = "recipes.html";
+        };
+      }
+    }

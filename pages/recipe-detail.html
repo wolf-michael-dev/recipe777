@@ -13,9 +13,12 @@
     <header class="detail-header">
       <img src="" alt="Rezept Bild" id="detail-img" class="header-bg-img" />
 
-      <div class="top-nav-overlay">
+<div class="top-nav-overlay">
         <button class="nav-btn" onclick="history.back()">❮</button>
         <div class="nav-actions">
+          <!-- Neuer Bearbeiten-Button für Admin -->
+          <a class="nav-btn" id="edit-btn" style="display: none; text-decoration: none;" aria-label="Bearbeiten">✏️</a>
+          <button class="nav-btn" id="delete-btn" style="display: none;" type="button" aria-label="Löschen">🗑️</button>
           <button class="nav-btn" type="button" aria-label="Favorit">❤️</button>
           <button class="nav-btn" type="button" aria-label="Teilen">🔗</button>
         </div>
@@ -25,6 +28,9 @@
     <!-- 2. Hauptinhalt -->
     <main class="detail-content">
       <h1 class="detail-title" id="detail-title">Lade Rezept...</h1>
+      <p style="font-size: 0.85rem; color: #9ca3af; margin: 0 0 16px 0;">
+        Erstellt am: <span id="detail-date" style="color: #0fb8cc;">-</span>
+      </p>
 
       <div class="detail-badges">
         <span class="badge-pill">⏱ <span id="detail-time">-</span></span>
