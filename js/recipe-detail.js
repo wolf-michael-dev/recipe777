@@ -1,59 +1,54 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  // 1. Rezept-ID aus der URL auslesen (z.B. ?id=5)
   const urlParams = new URLSearchParams(window.location.search);
   const recipeId = urlParams.get("id");
 
   if (!recipeId) {
-    document.getElementById("detail-title").textContent = "Rezept nicht gefunden";
+    document.getElementById("detail-title").textContent = "Kein Rezept ausgewählt";
     return;
   }
 
   try {
-    // 2. Daten von deinem eigenen Node.js Backend laden (anstatt Firebase)
-    // Dieser Endpunkt (/api/recipes/:id) muss später in deiner server.js definiert werden
     const response = await fetch(`http://localhost:3000/api/recipes/${recipeId}`);
-    
-    if (!response.ok) throw new Error("Netzwerkfehler");
+    if (!response.ok) throw new Error("Rezept konnte nicht geladen werden");
+
     const recipe = await response.json();
 
-    // 3. HTML mit den Datenbank-Werten befüllen
+    // Titel & Meta
     document.getElementById("detail-title").textContent = recipe.title;
     document.getElementById("detail-time").textContent = `${recipe.prepTime} Min.`;
-    
-    // Bild setzen (Falls imageUrl in der DB vorhanden ist)
+    document.getElementById("detail-portions").textContent = `${recipe.portions || 4} Pers.`;
+
+    // Bild setzen (oder Standard-Fallback)
     const imgEl = document.getElementById("detail-img");
-    if (recipe.imageUrl) {
-      imgEl.src = recipe.imageUrl;
-    } else {
-      imgEl.style.backgroundColor = "#2a2d33"; // Fallback, falls kein Bild vorhanden
-    }
+    imgEl.src = recipe.imageUrl || "../assets/images/torte.webp";
 
-    // 4. Zutaten-Grid dynamisch aufbauen (Zutaten sind als Array in der DB gespeichert)
+    // Zutaten-Raster aufbauen
     const ingredientsContainer = document.getElementById("detail-ingredients");
-    if (recipe.ingredients && Array.isArray(recipe.ingredients)) {
-      ingredientsContainer.innerHTML = recipe.ingredients.map(ing => `
-        <div class="ingredient-item">${ing}</div>
-      `).join("");
+    if (Array.isArray(recipe.ingredients) && recipe.ingredients.length > 0) {
+      ingredientsContainer.innerHTML = recipe.ingredients
+        .map((ing) => `<div class="ingredient-item">${ing}</div>`)
+        .join("");
     }
 
-    // 5. Zubereitungsschritte dynamisch aufbauen
-    // Angenommen, du speicherst 'instructions' als Array von Objekten in SQLite: 
-    // [{ title: "Vorbereitung", text: "..." }, ...]
+    // Zubereitungsschritte aufbauen
     const instructionsContainer = document.getElementById("detail-instructions");
-    if (recipe.instructions && Array.isArray(recipe.instructions)) {
-      instructionsContainer.innerHTML = recipe.instructions.map((step, index) => `
-        <div class="instruction-step">
-          <div class="step-number">${index + 1}</div>
-          <div class="step-text">
-            <strong>${step.title}</strong>
-            ${step.text}
+    if (Array.isArray(recipe.instructions) && recipe.instructions.length > 0) {
+      instructionsContainer.innerHTML = recipe.instructions
+        .map(
+          (step, index) => `
+          <div class="instruction-step">
+            <div class="step-number">${index + 1}</div>
+            <div class="step-text">
+              <strong>${step.title || `Schritt ${index + 1}`}</strong>
+              ${step.text}
+            </div>
           </div>
-        </div>
-      `).join("");
+        `
+        )
+        .join("");
     }
-
   } catch (error) {
-    console.error("Fehler beim Laden des Rezepts aus der Datenbank:", error);
-    document.getElementById("detail-title").textContent = "Fehler beim Laden";
+    console.error("Fehler beim Laden:", error);
+    document.getElementById("detail-title").textContent = "Fehler beim Laden des Rezepts";
   }
 });
