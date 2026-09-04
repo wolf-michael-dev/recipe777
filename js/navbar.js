@@ -1,3 +1,18 @@
+// Hilfsfunktion: Erkennt OS und setzt das Theme direkt am Body
+function ensureOSTheme() {
+  if (
+    !document.body.classList.contains("theme-android") &&
+    !document.body.classList.contains("theme-apple")
+  ) {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    if (/iPad|iPhone|iPod|Macintosh/.test(userAgent)) {
+      document.body.classList.add("theme-apple");
+    } else {
+      document.body.classList.add("theme-android");
+    }
+  }
+}
+
 // Hilfsfunktion: Berechnet Position und slidet den Indikator
 function slideTo(item) {
   const indicator = document.getElementById("nav-indicator");
@@ -14,11 +29,12 @@ function slideTo(item) {
   }
 
   indicator.style.width = `${width}px`;
-  // Der Wert -50% ist entscheidend, damit die Pille vertikal zentriert bleibt!
   indicator.style.transform = `translate(${left}px, -50%)`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  ensureOSTheme(); // Garantiert, dass jede Unterseite das richtige Theme hat
+
   const container = document.getElementById("navbar-container");
   if (!container) return;
 
@@ -33,24 +49,17 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((html) => {
       container.innerHTML = html;
 
-      // Pfade korrigieren
+      // Pfade für Unterseiten anpassen
       if (isInPagesDir) {
-        document
-          .getElementById("nav-recipes")
-          ?.setAttribute("href", "recipes.html");
-        document
-          .getElementById("nav-profile")
-          ?.setAttribute("href", "profile.html");
-        document
-          .getElementById("nav-home")
-          ?.setAttribute("href", "../index.html");
+        document.getElementById("nav-recipes")?.setAttribute("href", "recipes.html");
+        document.getElementById("nav-profile")?.setAttribute("href", "profile.html");
+        document.getElementById("nav-home")?.setAttribute("href", "../index.html");
       }
 
       // Aktiven Tab anhand der URL ermitteln
       const path = window.location.pathname;
       let activeId = "nav-home";
 
-      // Besteck aktiv setzen bei Übersicht, Kategorien und Detailansichten
       if (
         path.includes("recipes") ||
         path.includes("category") ||
@@ -65,13 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (activeItem) {
         activeItem.classList.add("active");
 
-        // Initial-Position ohne Animation setzen (damit es beim Laden nicht reinfliegt)
         const indicator = document.getElementById("nav-indicator");
         if (indicator) {
           indicator.style.transition = "none";
           slideTo(activeItem);
 
-          // Animation nach einem kurzen Moment aktivieren
           setTimeout(() => {
             indicator.style.transition =
               "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1)";
@@ -79,29 +86,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // Klick-Logik für den Slide-Effekt
+      // Klick-Logik mit Slide-Animation
       const navItems = document.querySelectorAll(".nav-item");
       navItems.forEach((item) => {
         item.addEventListener("click", (e) => {
-          e.preventDefault(); // Verhindert sofortiges Laden der neuen Seite
+          e.preventDefault();
 
-          // Alte Markierung entfernen, neue setzen
-          document
-            .querySelector(".nav-item.active")
-            ?.classList.remove("active");
+          document.querySelector(".nav-item.active")?.classList.remove("active");
           item.classList.add("active");
 
-          // Indikator zum neuen Item schieben
           slideTo(item);
 
-          // Warten, bis die Animation fertig ist (250ms), dann weiterleiten
           setTimeout(() => {
             window.location.href = item.getAttribute("href");
           }, 250);
         });
       });
 
-      // Beim Drehen des Smartphones (Resize) die Position korrigieren
+      // Beim Ändern der Fenstergröße Indikator neu ausrichten
       window.addEventListener("resize", () => {
         slideTo(document.querySelector(".nav-item.active"));
       });
