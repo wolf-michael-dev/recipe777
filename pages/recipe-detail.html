@@ -1,59 +1,51 @@
 <!doctype html>
-<html lang="de">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rezept Details - Recipe777</title>
+    <title>Recipe777 - Rezept Details</title>
     <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/navbar.css" />
     <link rel="stylesheet" href="../css/recipe-detail.css" />
   </head>
-  <body class="theme-android"> <!-- Das Theme wird wie gewohnt über dein Skript gesteuert -->
-    
-    <!-- 1. Header mit Bild und Navigation -->
+  <body>
+    <!-- 1. Header mit Hero-Bild & Navigation -->
     <header class="detail-header">
       <img src="" alt="Rezept Bild" id="detail-img" class="header-bg-img" />
       
       <div class="top-nav-overlay">
         <button class="nav-btn" onclick="history.back()">❮</button>
         <div class="nav-actions">
-          <button class="nav-btn">🌐</button>
-          <button class="nav-btn">🤍</button>
-          <button class="nav-btn">🔗</button>
+          <button class="nav-btn" type="button" aria-label="Favorit">❤️</button>
+          <button class="nav-btn" type="button" aria-label="Teilen">🔗</button>
         </div>
       </div>
     </header>
 
-    <!-- 2. Content Bereich -->
+    <!-- 2. Hauptinhalt -->
     <main class="detail-content">
-      <h1 class="detail-title" id="detail-title">Lädt...</h1>
+      <h1 class="detail-title" id="detail-title">Lade Rezept...</h1>
       
-      <p class="detail-meta">
-        Von <span style="color: #0fb8cc;">Recipe777 Team</span> • <span id="detail-date">Heute</span>
-      </p>
-
       <div class="detail-badges">
         <span class="badge-pill">⏱ <span id="detail-time">-</span></span>
-        <span class="badge-pill">👤 <span id="detail-portions">4 Pers.</span></span>
+        <span class="badge-pill">👤 <span id="detail-portions">-</span></span>
       </div>
 
-      <!-- 3. Zutaten -->
+      <!-- 3. Zutatenliste -->
       <section class="ingredients-section">
         <h2 class="section-title">Zutaten</h2>
-        <div class="ingredients-grid" id="detail-ingredients">
-          <!-- Wird dynamisch gefüllt -->
-        </div>
+        <div class="ingredients-grid" id="detail-ingredients"></div>
       </section>
 
-      <!-- 4. Zubereitung -->
+      <!-- 4. Zubereitungsschritte -->
       <section class="instructions-section">
         <h2 class="section-title">Zubereitung</h2>
-        <p class="section-subtitle">Tippe auf die Schritte, um sie abzuhaken</p>
-        <div class="instructions-list" id="detail-instructions">
-          <!-- Wird dynamisch gefüllt -->
-        </div>
+        <div class="instructions-list" id="detail-instructions"></div>
       </section>
     </main>
 
+    <div id="navbar-container"></div>
+    <script src="../js/navbar.js"></script>
     <script src="../js/recipe-detail.js"></script>
   </body>
 </html>
