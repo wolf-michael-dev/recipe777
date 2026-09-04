@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neues Rezept - Recipe777</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/navbar.css" />
+    <link rel="stylesheet" href="../css/add-recipe.css" />
+  </head>
+  <body>
+    <header class="header-bar">
+      <button class="back-btn" onclick="history.back()">❮</button>
+      <h1 style="font-size: 1.1rem; margin: 0;">Rezept hinzufügen</h1>
+    </header>
+
+    <main class="form-container">
+      <form id="recipe-form">
+        <div class="form-group">
+          <label for="title">Titel des Rezepts</label>
+          <input type="text" id="title" required placeholder="z. B. Saftiger Burger" />
+        </div>
+
+        <div style="display: flex; gap: 12px;">
+          <div class="form-group" style="flex: 1;">
+            <label for="prepTime">Zeit (Min.)</label>
+            <input type="number" id="prepTime" required value="30" />
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label for="portions">Portionen</label>
+            <input type="number" id="portions" required value="4" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Kategorie</label>
+          <select id="category" required></select>
+        </div>
+
+        <div class="form-group">
+          <label for="image">Rezeptbild hochladen</label>
+          <input type="file" id="image" accept="image/*" />
+        </div>
+
+        <div class="form-group">
+          <label for="ingredients">Zutaten (kommagetrennt)</label>
+          <textarea id="ingredients" rows="3" placeholder="500g Hackfleisch, 1 Zwiebel, 2 Brötchen"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="instructions">Zubereitung (jede Zeile ein Schritt)</label>
+          <textarea id="instructions" rows="4" placeholder="Fleisch würzen und formen.&#10;In der Pfanne von beiden Seiten braten."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Speichern</button>
+      </form>
+    </main>
+
+    <div id="navbar-container"></div>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/add-recipe.js"></script>
+  </body>
+</html>
