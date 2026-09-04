@@ -32,4 +32,38 @@
 
     <script src="../js/category.js"></script>
   </body>
+</html><!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kategorie - Recipe777</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/category.css" />
+  </head>
+  <body>
+    <!-- Kopfzeile mit Zurück-Pfeil -->
+    <header class="category-header">
+      <button class="icon-btn" onclick="history.back()">❮</button>
+      <h1 class="header-title" id="cat-title">Rezepte</h1>
+      <div style="width: 32px;"></div>
+    </header>
+
+    <!-- Suchleiste -->
+    <div class="search-wrapper">
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="search-input" placeholder="Поиск..." />
+      </div>
+    </div>
+
+    <!-- Hier baut JavaScript die Rezept-Karten ein -->
+    <main class="recipe-list" id="recipe-list">
+      <p style="text-align: center; color: #9ca3af;">Lade Rezepte...</p>
+    </main>
+
+    <div id="navbar-container"></div>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/category.js"></script>
+  </body>
 </html>
