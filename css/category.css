@@ -1,0 +1,116 @@
+body {
+  background-color: #0f0f0f;
+  margin: 0;
+  color: #fff;
+  font-family: sans-serif;
+}
+
+/* Header */
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.header-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Suchleiste */
+.search-wrapper {
+  padding: 0 20px 20px;
+}
+
+/* Rezept-Karten */
+.recipe-list {
+  padding: 0 20px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.list-card {
+  display: block;
+  background-color: #1a1c20;
+  border-radius: 20px;
+  text-decoration: none;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.list-card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.list-card-info {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.list-card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.list-card-meta {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.list-card-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #2a2d33;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0fb8cc;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.list-card-image-wrapper {
+  position: relative;
+}
+
+.image-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: rgba(23, 25, 29, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

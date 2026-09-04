@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rezept Details - Recipe777</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/recipe-detail.css" />
+  </head>
+  <body class="theme-android"> <!-- Das Theme wird wie gewohnt über dein Skript gesteuert -->
+    
+    <!-- 1. Header mit Bild und Navigation -->
+    <header class="detail-header">
+      <img src="" alt="Rezept Bild" id="detail-img" class="header-bg-img" />
+      
+      <div class="top-nav-overlay">
+        <button class="nav-btn" onclick="history.back()">❮</button>
+        <div class="nav-actions">
+          <button class="nav-btn">🌐</button>
+          <button class="nav-btn">🤍</button>
+          <button class="nav-btn">🔗</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. Content Bereich -->
+    <main class="detail-content">
+      <h1 class="detail-title" id="detail-title">Lädt...</h1>
+      
+      <p class="detail-meta">
+        Von <span style="color: #0fb8cc;">Recipe777 Team</span> • <span id="detail-date">Heute</span>
+      </p>
+
+      <div class="detail-badges">
+        <span class="badge-pill">⏱ <span id="detail-time">-</span></span>
+        <span class="badge-pill">👤 <span id="detail-portions">4 Pers.</span></span>
+      </div>
+
+      <!-- 3. Zutaten -->
+      <section class="ingredients-section">
+        <h2 class="section-title">Zutaten</h2>
+        <div class="ingredients-grid" id="detail-ingredients">
+          <!-- Wird dynamisch gefüllt -->
+        </div>
+      </section>
+
+      <!-- 4. Zubereitung -->
+      <section class="instructions-section">
+        <h2 class="section-title">Zubereitung</h2>
+        <p class="section-subtitle">Tippe auf die Schritte, um sie abzuhaken</p>
+        <div class="instructions-list" id="detail-instructions">
+          <!-- Wird dynamisch gefüllt -->
+        </div>
+      </section>
+    </main>
+
+    <script src="../js/recipe-detail.js"></script>
+  </body>
+</html>

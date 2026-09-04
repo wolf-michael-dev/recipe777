@@ -11,92 +11,26 @@
   <body>
     <main class="recipes-page">
       <!-- Suchleiste -->
-      <div class="search-container">
-        <span class="search-icon">🔍</span>
-        <input type="text" class="search-input" id="search-input" placeholder="Поиск..." />
-      </div>
+
 
       <!-- Vertikale Kategorien-Liste -->
-      <div class="category-list">
-        
-        <!-- 1. Выпечка -->
-        <a href="#" class="list-item">
-          <div class="item-info">
-            <h3 class="item-title">Выпечка</h3>
-            <span class="item-count" style="color: #f43f5e;">4 рецепта</span>
-          </div>
-          <div class="item-icon" style="background-color: rgba(244, 63, 94, 0.15); color: #f43f5e;">
-            🧁
-          </div>
-        </a>
+     <!-- Suchleiste bleibt unverändert -->
+    <div class="search-container">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="search-input" placeholder="Поиск..." />
+    </div>
 
-        <!-- 2. Десерты & Мороженое -->
-        <a href="#" class="list-item">
-          <div class="item-info">
-            <h3 class="item-title">Десерты & Мороженое</h3>
-            <span class="item-count" style="color: #a855f7;">3 рецепта</span>
-          </div>
-          <div class="item-icon" style="background-color: rgba(168, 85, 247, 0.15); color: #a855f7;">
-            🍦
-          </div>
-        </a>
+    <!-- Hier werden die Kategorien aus der Datenbank reingeladen -->
+    <div class="category-list" id="dynamic-category-list">
+      <p style="text-align: center; color: #9ca3af;">Lade Kategorien...</p>
+    </div>
+  </main>
 
-        <!-- 3. Салаты -->
-        <a href="#" class="list-item">
-          <div class="item-info">
-            <h3 class="item-title">Салаты</h3>
-            <span class="item-count" style="color: #22c55e;">5 рецептов</span>
-          </div>
-          <div class="item-icon" style="background-color: rgba(34, 197, 94, 0.15); color: #22c55e;">
-            🥗
-          </div>
-        </a>
-
-        <!-- 4. Закуски / Снеки -->
-        <a href="#" class="list-item">
-          <div class="item-info">
-            <h3 class="item-title">Закуски / Снеки</h3>
-            <span class="item-count" style="color: #94a3b8;">2 рецепта</span>
-          </div>
-          <div class="item-icon" style="background-color: rgba(148, 163, 184, 0.15); color: #94a3b8;">
-            🍔
-          </div>
-        </a>
-
-        <!-- 5. Напитки -->
-        <a href="#" class="list-item">
-          <div class="item-info">
-            <h3 class="item-title">Напитки</h3>
-            <span class="item-count" style="color: #06b6d4;">2 рецепта</span>
-          </div>
-          <div class="item-icon" style="background-color: rgba(6, 182, 212, 0.15); color: #06b6d4;">
-            🍹
-          </div>
-        </a>
-
-        <!-- 6. Завтрак -->
-        <a href="#" class="list-item">
-          <div class="item-info">
-            <h3 class="item-title">Завтрак</h3>
-            <span class="item-count" style="color: #eab308;">3 рецепта</span>
-          </div>
-          <div class="item-icon" style="background-color: rgba(234, 179, 8, 0.15); color: #eab308;">
-            🥐
-          </div>
-        </a>
-
-        <!-- 7. Гриль -->
-        <a href="#" class="list-item">
-          <div class="item-info">
-            <h3 class="item-title">Гриль</h3>
-            <span class="item-count" style="color: #f97316;">2 рецепта</span>
-          </div>
-          <div class="item-icon" style="background-color: rgba(249, 115, 22, 0.15); color: #f97316;">
-            🔥
-          </div>
-        </a>
-
-      </div>
+  <div id="navbar-container"></div>
+  <script src="../js/navbar.js"></script>
+  <!-- Neues Skript für den Datenbank-Abruf: -->
+  <script src="../js/recipes.js"></script>
+</body>
     </main>
 
     <div id="navbar-container"></div>

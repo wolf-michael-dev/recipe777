@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kategorie - Recipe777</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/category.css" />
+  </head>
+  <body class="theme-android">
+    
+    <!-- Header -->
+    <header class="category-header">
+      <button class="icon-btn" onclick="history.back()">❮</button>
+      <h1 class="header-title">Главные блюда</h1>
+      <div style="width: 40px;"></div> <!-- Platzhalter für Symmetrie -->
+    </header>
+
+    <!-- Suchleiste -->
+    <div class="search-wrapper">
+      <div class="search-container">
+        <span class="search-icon" style="color: #0fb8cc;">🔍</span>
+        <input type="text" class="search-input" placeholder="Suchen..." />
+        <span class="filter-icon">⎚</span>
+      </div>
+    </div>
+
+    <!-- Dynamische Liste -->
+    <main class="recipe-list" id="recipe-list">
+      <!-- Wird per JavaScript gefüllt -->
+    </main>
+
+    <script src="../js/category.js"></script>
+  </body>
+</html>
