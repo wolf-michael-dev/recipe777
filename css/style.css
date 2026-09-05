@@ -1,3 +1,27 @@
+/* =========================================
+   VARIABLEN (Auto Dark/Light Mode)
+   ========================================= */
+:root {
+  --bg-color: #f2f2f7;
+  --card-bg: #ffffff;
+  --text-main: #1c1c1e;
+  --text-muted: #8e8e93;
+  --border-color: rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #000000;
+    --card-bg: #17191d;
+    --text-main: #ffffff;
+    --text-muted: #9ca3af;
+    --border-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* =========================================
+   BASIS
+   ========================================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,11 +29,14 @@
 }
 
 body {
-  background-color: #0f0f0f;
-  color: #ffffff;
+  background-color: var(--bg-color);
+  color: var(--text-main);
   font-family: Arial, sans-serif;
   margin: 0 auto;
-  padding-bottom: 100px;
+  padding-bottom: 120px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 h1 {
@@ -33,21 +60,44 @@ main {
   font-size: 1.75rem;
   font-weight: 700;
   line-height: 1.25;
-  color: #ffffff;
 }
 
-/* 2. Highlight Rezeptkarte */
-.featured-card {
+/* =========================================
+   KARUSSELL & REZEPT-KARTEN
+   ========================================= */
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 16px;
+  padding-bottom: 12px;
+  padding-right: 20px; /* Puffer am Ende, damit die letzte Karte nicht am Rand klebt */
+  align-items: flex-start; /* Verhindert, dass geschlossene Karten mit der Nachbarkarte mitwachsen */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.snap-card {
+  min-width: 82%; /* Karte ist schmaler, sodass die nächste rechts immer leicht anblitzt */
+  scroll-snap-align: center;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  background-color: var(--card-bg);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
 }
 
 .card-image-wrapper {
   position: relative;
   width: 100%;
   height: 280px;
-  flex-shrink: 0; /* ZWINGEND: Verhindert, dass das Bild zerquetscht wird */
-  border-radius: 20px;
+  flex-shrink: 0; /* Verhindert das Schrumpfen des Bildes beim Aufklappen */
   overflow: hidden;
 }
 
@@ -64,7 +114,7 @@ main {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.05) 40%,
+    rgba(0, 0, 0, 0.01) 40%,
     rgba(0, 0, 0, 0.85) 100%
   );
   display: flex;
@@ -84,6 +134,7 @@ main {
   margin-bottom: 8px;
 }
 
+/* Der Titel über dem Bild bleibt immer weiß, auch im Light Mode */
 .card-title {
   font-size: 1.25rem;
   font-weight: 600;
@@ -91,47 +142,58 @@ main {
   line-height: 1.35;
 }
 
-/* 3. Aktions-Buttons */
-.card-actions {
-  display: flex;
-  justify-content: space-around;
-  margin: 16px 0 32px;
-}
-
-.action-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.action-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-color: #17191d;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* =========================================
+   AKKORDEON (Zutaten aufklappen)
+   ========================================= */
+.expand-btn {
+  width: 100%;
+  background-color: transparent;
+  color: #0fb8cc;
+  border: none;
+  border-top: 1px solid var(--border-color);
+  padding: 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
+  text-align: center;
   transition:
-    transform 0.15s ease,
+    opacity 0.15s ease-in-out,
     background-color 0.2s ease;
 }
 
-.action-btn:active {
-  transform: scale(0.92);
-  background-color: #242830;
+.expand-btn:active {
+  background-color: rgba(128, 128, 128, 0.1);
 }
 
-.action-label {
-  font-size: 0.75rem;
-  color: #9ca3af;
+.card-details {
+  max-height: 0; /* Versteckt den Inhalt standardmäßig */
+  overflow: hidden;
+  transition: max-height 0.4s ease; /* Die weiche Animation beim Aufklappen */
 }
 
-/* 4. Kategorien */
+.card-details.open {
+  max-height: 2000px; /* Klappt weich auf, bietet genug Platz für viele Zutaten */
+}
+
+.details-content {
+  padding: 0 20px 20px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.details-content ul {
+  padding-left: 20px;
+  margin-top: 12px;
+}
+
+.details-content li {
+  margin-bottom: 8px;
+}
+
+/* =========================================
+   KATEGORIEN RASTER
+   ========================================= */
 .categories-section h3 {
   font-size: 1.25rem;
   font-weight: 700;
@@ -145,7 +207,7 @@ main {
 }
 
 .category-card {
-  background-color: #17191d;
+  background-color: var(--card-bg);
   border-radius: 20px;
   padding: 20px 16px;
   display: flex;
@@ -155,12 +217,12 @@ main {
   gap: 10px;
   text-align: center;
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
   transition: background-color 0.2s ease;
 }
 
 .category-card:hover {
-  background-color: #22262d;
+  background-color: rgba(128, 128, 128, 0.1);
 }
 
 .category-icon {
@@ -170,21 +232,23 @@ main {
 .category-name {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #e5e7eb;
+  color: var(--text-main);
 }
 
-/* 5. Gedanke des Tages / Widget */
+/* =========================================
+   GEDANKE DES TAGES WIDGET
+   ========================================= */
 .thought-card {
-  background-color: #17191d;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 24px;
   margin-top: 32px;
-  margin-bottom: 24px; /* Abstand zur Navbar */
+  margin-bottom: 24px;
 }
 
 .thought-header {
-  color: #f59e0b; /* Das Orange aus deiner Vorlage */
+  color: #f59e0b;
   font-size: 0.9rem;
   font-weight: 700;
   margin-bottom: 16px;
@@ -197,127 +261,37 @@ main {
   font-style: italic;
   font-size: 1.05rem;
   line-height: 1.5;
-  color: #e5e7eb;
+  color: var(--text-main);
   margin-bottom: 12px;
 }
 
 .thought-ref {
   text-align: right;
   font-size: 0.8rem;
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
-/* --- Apple Design (iOS / macOS) --- */
+/* =========================================
+   THEME OPTIMIERUNGEN (Apple / Android)
+   ========================================= */
 .theme-apple {
   font-family:
     -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
     sans-serif;
+  overscroll-behavior-y: auto; /* Typisches iOS "Gummiband"-Scrollen */
 }
 
 .theme-apple .category-card {
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background-color: rgba(23, 25, 29, 0.6);
 }
 
-/* --- Android Design (Material You) --- */
 .theme-android {
   font-family: "Roboto", "Google Sans", sans-serif;
+  overscroll-behavior-y: none; /* Reines Android-Scrollverhalten */
 }
 
 .theme-android .category-card {
-  border-radius: 16px; /* Typische MD3 Squircle-Form */
+  border-radius: 16px; /* MD3 Squircle-Look */
   border: none;
-  background-color: #1e2126;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-/* 1. Swipe-Karussell */
-.carousel-container {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  gap: 16px;
-  padding-bottom: 12px;
-  padding-right: 20px;
-  align-items: flex-start; /* ZWINGEND: Verhindert, dass die zweite Karte sich mitstreckt */
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.carousel-container::-webkit-scrollbar {
-  display: none;
-}
-
-.snap-card {
-  min-width: 82%; /* Karte füllt fast den ganzen Bildschirm, lässt die nächste Karte leicht anblitzen */
-  scroll-snap-align: center;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  background-color: #17191d;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  overflow: hidden;
-}
-
-/* 2. Akkordeon-Button */
-.expand-btn {
-  background-color: #1a1c20;
-  color: #0a84ff;
-  border: none;
-  padding: 16px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: center;
-  /* NEU: opacity hinzugefügt für das sanfte Ein- und Ausblenden */
-  transition: background-color 0.2s ease, opacity 0.15s ease-in-out;
-}
-
-.expand-btn:active {
-  background-color: #22252a;
-}
-
-/* 3. Ausklappbarer Bereich */
-.card-details {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card-details.open {
-  grid-template-rows: 1fr;
-}
-
-.details-content {
-  overflow: hidden;
-  padding: 0 16px; /* Horizontaler Abstand */
-}
-
-/* Etwas Abstand, wenn das Akkordeon offen ist */
-.card-details.open .details-content {
-  padding: 8px 16px 24px 16px;
-}
-
-.details-content p {
-  color: #9ca3af;
-  margin-bottom: 8px;
-  font-size: 0.9rem;
-}
-
-.details-content ul {
-  list-style-type: none;
-  color: #e5e7eb;
-}
-
-.details-content li {
-  padding: 4px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  font-size: 0.95rem;
-}
-
-.details-content li:last-child {
-  border-bottom: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 }
