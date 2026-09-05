@@ -10,8 +10,8 @@
 
 .nav-item {
   position: relative;
-  z-index: 2; /* Hält Icons über dem Indikator */
-  color: var(--text-muted); /* DYNAMISCH: Passt sich dem Light/Dark Mode an */
+  z-index: 2;
+  color: #6c757d;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -19,11 +19,16 @@
   transition: color 0.2s ease-in-out;
 }
 
+/* ZWINGEND: Verhindert, dass die SVG-Icons unsichtbar werden oder kollabieren */
 .nav-item svg {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
   display: block;
+  fill: currentColor;
 }
 
-/* Der universelle Indikator */
 .nav-indicator {
   position: absolute;
   left: 0;
@@ -32,7 +37,7 @@
 }
 
 /* =========================================
-   1. APPLE DESIGN (Milchglas & Schwebend)
+   1. APPLE DESIGN (Dark Mode Standard)
    ========================================= */
 .theme-apple .bottom-nav {
   bottom: 20px;
@@ -40,12 +45,17 @@
   transform: translateX(-50%);
   width: min(360px, calc(100% - 32px));
   height: 64px;
-  background-color: var(--apple-nav-bg); /* DYNAMISCH */
+  background-color: rgba(
+    30,
+    30,
+    34,
+    0.85
+  ); /* Weniger transparent für bessere Lesbarkeit */
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 40px;
-  border: 1px solid var(--border-color); /* DYNAMISCH */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Sanfterer Schatten für Light Mode */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .theme-apple .nav-item {
@@ -54,26 +64,20 @@
   border-radius: 50%;
 }
 
-.theme-apple .nav-item svg {
-  width: 24px;
-  height: 24px;
-}
-
 .theme-apple .nav-item.active {
-  color: var(--apple-accent); /* DYNAMISCH */
+  color: #0a84ff;
 }
 
-/* Apple Indikator: Umrandeter Button */
 .theme-apple .nav-indicator {
   height: 48px;
   border-radius: 50%;
-  border: 2px solid var(--apple-accent); /* DYNAMISCH */
-  background-color: transparent;
+  border: 2px solid #0a84ff;
+  background-color: rgba(10, 132, 255, 0.15);
   box-sizing: border-box;
 }
 
 /* =========================================
-   2. ANDROID DESIGN (Material You / MD3)
+   2. ANDROID DESIGN (Dark Mode Standard)
    ========================================= */
 .theme-android body {
   padding-bottom: 90px;
@@ -86,9 +90,9 @@
   width: 100%;
   max-width: 800px;
   height: 80px;
-  background-color: var(--android-nav-bg); /* DYNAMISCH */
+  background-color: #17191d;
   border-radius: 24px 24px 0 0;
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
 }
 
 .theme-android .nav-item {
@@ -106,17 +110,43 @@
 }
 
 .theme-android .nav-item.active {
-  color: var(--android-icon-active); /* DYNAMISCH */
+  color: #c2e7ff;
 }
 
-/* Android Indikator: Pille */
 .theme-android .nav-indicator {
   height: 32px;
   border-radius: 16px;
-  background-color: var(--android-pill); /* DYNAMISCH */
+  background-color: #004a77;
 }
 
 .theme-android .nav-item.active svg {
   background-color: transparent;
 }
 
+/* =========================================
+   3. AUTOMATISCHER LIGHT MODE
+   ========================================= */
+@media (prefers-color-scheme: light) {
+  .nav-item {
+    color: #8e8e93; /* Etwas dunklere Icons im hellen Modus */
+  }
+
+  .theme-apple .bottom-nav {
+    background-color: rgba(255, 255, 255, 0.85); /* Helles Milchglas */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .theme-android .bottom-nav {
+    background-color: #f3edfa; /* Helles Material You MD3 Lila/Grau */
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.05);
+  }
+
+  .theme-android .nav-item.active {
+    color: #004a77;
+  }
+
+  .theme-android .nav-indicator {
+    background-color: #c2e7ff;
+  }
+}
