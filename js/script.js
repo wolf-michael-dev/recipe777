@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ? `&exclude=${loadedRecipeIds.join(",")}`
           : "";
       const response = await fetch(
-        `http://localhost:3000/api/recipes/random?limit=2${excludeParam}`,
+        `https://recipe777-test.loca.lt/api/recipes/random?limit=2${excludeParam}`,
       );
       const recipes = await response.json();
 
