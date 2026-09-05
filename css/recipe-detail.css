@@ -16,7 +16,7 @@ body {
 }
 
 .header-bg-img {
-  width: 100%;
+  width: 800px;
   height: 100%;
   object-fit: cover;
   display: block;
