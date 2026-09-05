@@ -126,20 +126,23 @@
 /* =========================================
    3. AUTOMATISCHER LIGHT MODE
    ========================================= */
+/* =========================================
+   3. AUTOMATISCHER LIGHT MODE
+   ========================================= */
 @media (prefers-color-scheme: light) {
   .nav-item {
-    color: #8e8e93; /* Etwas dunklere Icons im hellen Modus */
+    color: #8e8e93;
   }
 
   .theme-apple .bottom-nav {
-    background-color: rgba(255, 255, 255, 0.85); /* Helles Milchglas */
+    background-color: rgba(255, 255, 255, 0.85);
     border: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   }
 
   .theme-android .bottom-nav {
-    background-color: #f3edfa; /* Helles Material You MD3 Lila/Grau */
-    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff; /* Reines Weiß statt Material-Rosa */
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.06); /* Sanfterer Schatten */
   }
 
   .theme-android .nav-item.active {
