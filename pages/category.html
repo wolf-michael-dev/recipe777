@@ -7,38 +7,33 @@
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/navbar.css" />
     <link rel="stylesheet" href="../css/category.css" />
+    <link rel="stylesheet" href="../css/recipes.css" />
   </head>
   <body>
     <!-- 1. Einheitlicher Kopfbereich -->
     <header class="category-header">
       <button class="icon-btn" onclick="history.back()">❮</button>
       <h1 class="header-title" id="cat-title">Rezepte</h1>
-      <div style="width: 32px"></div>
+      <div style="width: 32px;"></div>
     </header>
 
     <!-- 2. Suchleiste -->
     <div class="search-wrapper">
       <div class="search-container">
         <span class="search-icon">🔍</span>
-        <input
-          type="text"
-          class="search-input"
-          id="search-input"
-          placeholder="Поиск..."
-        />
+        <input type="text" class="search-input" id="search-input" placeholder="Поиск..." />
       </div>
     </div>
 
     <!-- 3. Hier baut JS die Rezept-Karten aus der DB ein -->
     <main class="recipe-list" id="recipe-list">
-      <p style="text-align: center; color: #9ca3af; margin-top: 40px">
-        Lade Rezepte...
-      </p>
+      <p style="text-align: center; color: #9ca3af; margin-top: 40px;">Lade Rezepte...</p>
     </main>
 
     <!-- 4. Globale Leiste -->
     <div id="navbar-container"></div>
     <script src="../js/navbar.js"></script>
     <script src="../js/category.js"></script>
+    <script src="../js/script.js"></script>
   </body>
 </html>
