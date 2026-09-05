@@ -1,9 +1,8 @@
-
 body {
   margin: 0;
   background-color: var(--bg-color);
   color: var(--text-main);
-  padding-bottom: 120px; /* Wichtig, damit die Navbar keine Inhalte verdeckt */
+  padding-bottom: 120px;
 }
 
 /* Header */
@@ -17,7 +16,7 @@ body {
 .icon-btn {
   background: transparent;
   border: none;
-  color: #fff;
+  color: var(--text-main); /* KORRIGIERT */
   font-size: 1.2rem;
   cursor: pointer;
 }
@@ -26,6 +25,7 @@ body {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 0;
+  color: var(--text-main); /* SICHERHEITSHALBER HINZUGEFÜGT */
 }
 
 /* Suchleiste */
@@ -73,20 +73,20 @@ body {
 .list-card-title {
   font-size: 1.05rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-main); /* KORRIGIERT */
   margin: 0;
 }
 
 .list-card-meta {
   font-size: 0.8rem;
-  color: #9ca3af;
+  color: var(--text-muted); /* KORRIGIERT */
 }
 
 .list-card-arrow {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: #2a2d33;
+  background-color: var(--bg-color); /* KORRIGIERT */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,7 +104,8 @@ body {
   position: absolute;
   top: 12px;
   right: 12px;
-  background-color: rgba(23, 25, 29, 0.85);
+  background-color: rgba(23, 25, 29, 0.85); /* Bleibt dunkel auf dem Foto */
+  color: #ffffff; /* KORRIGIERT: Zwingt die Schrift im Badge auf Weiß */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   padding: 6px 12px;
