@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     // Ruft die Kategorien aus deinem lokalen Backend ab
-    const response = await fetch("https://recipe777-test.loca.lt/");
+    const response = await fetch("https://recipe777-test.loca.lt/api/categories");
     if (!response.ok) throw new Error("Netzwerkfehler");
     
     const categories = await response.json();
