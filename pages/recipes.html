@@ -11,30 +11,24 @@
   <body>
     <main class="recipes-page">
       <!-- Suchleiste -->
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          class="search-input"
+          id="search-input"
+          placeholder="Поиск..."
+        />
+      </div>
 
-
-      <!-- Vertikale Kategorien-Liste -->
-     <!-- Suchleiste bleibt unverändert -->
-    <div class="search-container">
-      <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" id="search-input" placeholder="Поиск..." />
-    </div>
-
-    <!-- Hier werden die Kategorien aus der Datenbank reingeladen -->
-    <div class="category-list" id="dynamic-category-list">
-      <p style="text-align: center; color: #9ca3af;">Lade Kategorien...</p>
-    </div>
-  </main>
-
-  <div id="navbar-container"></div>
-  <script src="../js/navbar.js"></script>
-  <!-- Neues Skript für den Datenbank-Abruf: -->
-  <script src="../js/recipes.js"></script>
-</body>
+      <!-- Hier werden die Kategorien aus der Datenbank reingeladen -->
+      <div class="category-list" id="dynamic-category-list">
+        <p style="text-align: center; color: #9ca3af">Lade Kategorien...</p>
+      </div>
     </main>
 
     <div id="navbar-container"></div>
     <script src="../js/navbar.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="../js/recipes.js"></script>
   </body>
 </html>
