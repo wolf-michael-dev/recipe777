@@ -11,7 +11,7 @@
 .nav-item {
   position: relative;
   z-index: 2; /* Hält Icons über dem Indikator */
-  color: #6c757d;
+  color: var(--text-muted); /* DYNAMISCH: Passt sich dem Light/Dark Mode an */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -19,28 +19,33 @@
   transition: color 0.2s ease-in-out;
 }
 
-/* Der universelle Indikator (Grundgerüst) */
+.nav-item svg {
+  display: block;
+}
+
+/* Der universelle Indikator */
 .nav-indicator {
   position: absolute;
   left: 0;
-  top: 50%; /* Zwingt den Rahmen exakt in die vertikale Mitte */
-  z-index: 1; 
+  top: 50%;
+  z-index: 1;
 }
 
-
-/* --- Apple Navigation --- */
+/* =========================================
+   1. APPLE DESIGN (Milchglas & Schwebend)
+   ========================================= */
 .theme-apple .bottom-nav {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   width: min(360px, calc(100% - 32px));
   height: 64px;
-  background-color: rgba(22, 24, 27, 0.75);
+  background-color: var(--apple-nav-bg); /* DYNAMISCH */
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-color); /* DYNAMISCH */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Sanfterer Schatten für Light Mode */
 }
 
 .theme-apple .nav-item {
@@ -49,21 +54,27 @@
   border-radius: 50%;
 }
 
-.theme-apple .nav-item.active {
-  color: #0a84ff;
+.theme-apple .nav-item svg {
+  width: 24px;
+  height: 24px;
 }
 
-/* Apple Indikator: Umrandet wie ein Button */
+.theme-apple .nav-item.active {
+  color: var(--apple-accent); /* DYNAMISCH */
+}
+
+/* Apple Indikator: Umrandeter Button */
 .theme-apple .nav-indicator {
   height: 48px;
   border-radius: 50%;
-  border: 2px solid #0a84ff;
-  background-color: rgba(10, 132, 255, 0.15);
+  border: 2px solid var(--apple-accent); /* DYNAMISCH */
+  background-color: transparent;
   box-sizing: border-box;
 }
 
-
-/* --- Android Navigation (Material You) --- */
+/* =========================================
+   2. ANDROID DESIGN (Material You / MD3)
+   ========================================= */
 .theme-android body {
   padding-bottom: 90px;
 }
@@ -75,9 +86,9 @@
   width: 100%;
   max-width: 800px;
   height: 80px;
-  background-color: #17191d;
+  background-color: var(--android-nav-bg); /* DYNAMISCH */
   border-radius: 24px 24px 0 0;
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08);
 }
 
 .theme-android .nav-item {
@@ -95,21 +106,17 @@
 }
 
 .theme-android .nav-item.active {
-  color: #c2e7ff;
+  color: var(--android-icon-active); /* DYNAMISCH */
 }
 
-/* Android Indikator: Die typische Pille im Hintergrund */
+/* Android Indikator: Pille */
 .theme-android .nav-indicator {
   height: 32px;
   border-radius: 16px;
-  background-color: #004a77;
+  background-color: var(--android-pill); /* DYNAMISCH */
 }
 
 .theme-android .nav-item.active svg {
   background-color: transparent;
-  padding: 4px 16px;
-  border-radius: 16px;
-  width: 56px;
-  height: 32px;
-  box-sizing: border-box;
 }
+
