@@ -16,79 +16,20 @@
         <p id="welcome-message"></p>
       </header>
 
-      <!-- Highlight-Karussell (Swipe) -->
-      <section class="carousel-container">
-        <!-- Karte 1: Die Erdbeertorte -->
-        <article class="recipe-card snap-card">
-          <div class="card-image-wrapper">
-            <img src="assets/images/torte.webp" alt="Torte" class="card-img" />
-            <div class="card-overlay">
-              <span class="badge" id="card-badge">Empfehlung</span>
-              <h2 class="card-title" id="card-title">
-                Festliche Erdbeer-Mascarpone-Torte
-              </h2>
-            </div>
-          </div>
-
-          <!-- Akkordeon-Button -->
-          <button class="expand-btn" type="button"></button>
-
-          <!-- Ausklappbare Details (Akkordeon) -->
-          <div class="card-details">
-            <div class="details-content">
-              <p><strong>Zeit:</strong> 45 Min.</p>
-              <ul>
-                <li>500g Erdbeeren</li>
-                <li>250g Mascarpone</li>
-                <li>100g Zucker</li>
-              </ul>
-            </div>
-          </div>
-        </article>
-
-        <!-- Karte 2: Borschtsch (Vorbereitung für das spätere Backend) -->
-        <article class="recipe-card snap-card">
-          <div class="card-image-wrapper">
-            <img
-              src="assets/images/borschtsch.webp"
-              alt="Borschtsch"
-              class="card-img"
-              style="background: #2a2d33"
-            />
-            <div class="card-overlay">
-              <span class="badge">Klassiker</span>
-              <h2 class="card-title">Traditioneller Borschtsch</h2>
-            </div>
-          </div>
-
-          <button
-            class="expand-btn"
-            type="button"
-            onclick="toggleAccordion(this)"
-          >
-            Zutaten & Details ansehen ⬇
-          </button>
-
-          <div class="card-details">
-            <div class="details-content">
-              <p><strong>Zeit:</strong> 45 Min.</p>
-              <ul>
-                <li>Rote Bete</li>
-                <li>Kartoffeln</li>
-                <li>Kohl</li>
-              </ul>
-            </div>
-          </div>
-        </article>
+      <!-- Highlight-Karussell (Dynamisches Swipe & Lazy Load) -->
+      <section class="carousel-container" id="featured-carousel">
+        <!-- Dieser unsichtbare Kasten löst das Nachladen aus, wenn er ins Bild scrollt -->
+        <div
+          id="carousel-observer-target"
+          style="min-width: 1px; flex-shrink: 0"
+        ></div>
       </section>
 
-      <!-- Kategorien -->
-      <!-- 4 Kategorien-Raster (komplett) -->
+      <!-- Kategorien-Raster (komplett) -->
       <section class="categories-section">
         <h3 id="categories-title"></h3>
         <div class="categories-grid">
           <div class="category-card" tabindex="0" role="button">
-            <!-- Icon-Farben direkt inline oder über CSS anpassbar -->
             <span class="category-icon" style="color: #0fb8cc">🐟</span>
             <span class="category-name" id="cat-seafood"></span>
           </div>
@@ -107,7 +48,7 @@
         </div>
       </section>
 
-      <!-- Gedanke des Tages (Wirkt wie auf deiner Vorlage) -->
+      <!-- Gedanke des Tages -->
       <section class="thought-card">
         <h4 class="thought-header">📖 <span id="thought-heading"></span></h4>
         <p class="thought-quote" id="thought-quote"></p>
