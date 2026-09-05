@@ -9,8 +9,8 @@ body {
 .detail-header {
   position: relative;
   width: 100%;
-  max-width: 800px; /* Passt sich exakt der Breite des Inhalts an */
-  margin: 0 auto;   /* Zentriert das Bild auf dem Desktop */
+  max-width: 800px; /* An die Breite der Navigationsleiste angepasst */
+  margin: 0 auto;
   height: 320px;
   border-radius: 0 0 28px 28px;
   overflow: hidden;
@@ -53,9 +53,11 @@ body {
 
 /* Inhaltsbereich */
 .detail-content {
-  max-width: 600px;
+  width: 100%;
+  max-width: 800px; /* An das Bild und die Navigationsleiste angepasst */
   margin: 0 auto;
   padding: 24px 20px;
+  box-sizing: border-box; /* WICHTIG: Verhindert, dass das Padding die Box breiter macht */
 }
 
 .detail-title {
