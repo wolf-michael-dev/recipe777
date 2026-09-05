@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const response = await fetch(
-      `http://localhost:3000/api/recipes/${recipeId}`,
+      `https://recipe777-test.loca.lt/api/recipes/${recipeId}`,
     );
     if (!response.ok) throw new Error("Rezept konnte nicht geladen werden");
 
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           if (!confirm("Rezept wirklich unwiderruflich löschen?")) return;
           try {
             const res = await fetch(
-              `http://localhost:3000/api/recipes/${recipe.id}`,
+              `https://recipe777-test.loca.lt/api/recipes/${recipe.id}`,
               {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` },

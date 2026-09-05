@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 2. Passende Rezepte vom Backend laden
   const apiUrl = currentCategory
-    ? `http://localhost:3000/api/recipes?cat=${currentCategory}`
-    : "http://localhost:3000/api/recipes";
+    ? `https://recipe777-test.loca.lt/api/recipes?cat=${currentCategory}`
+    : "https://recipe777-test.loca.lt/api/recipes";
 
   try {
     const response = await fetch(apiUrl);
