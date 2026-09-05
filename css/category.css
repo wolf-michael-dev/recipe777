@@ -43,11 +43,11 @@ body {
 
 .list-card {
   display: block;
-  background-color: #1a1c20;
+  background-color: var(--card-bg);
   border-radius: 20px;
   text-decoration: none;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
 }
 
 .list-card-img {
