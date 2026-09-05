@@ -3,6 +3,8 @@ body {
   background-color: #0b0c0e;
   color: #ffffff;
   padding-bottom: 120px;
+    max-width: 800px;
+
 }
 
 /* Bildbereich oben */
