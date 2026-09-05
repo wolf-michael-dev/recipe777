@@ -295,3 +295,54 @@ main {
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 }
+/* =========================================
+   SUCHLEISTE (Global)
+   ========================================= */
+.search-wrapper {
+  padding: 0 20px 20px;
+}
+
+.search-container {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  opacity: 0.7;
+  z-index: 2;
+  color: var(--text-main);
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 16px 14px 44px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Apple Theme */
+.theme-apple .search-input {
+  border-radius: 10px;
+  background-color: rgba(118, 118, 128, 0.15);
+  border: none;
+}
+
+/* Android Theme */
+.theme-android .search-input {
+  border-radius: 28px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
