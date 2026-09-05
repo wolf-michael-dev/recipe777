@@ -1,9 +1,8 @@
 body {
   margin: 0;
-  background-color: #0b0c0e;
-  color: #ffffff;
-  padding-bottom: 120px;
-
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  padding-bottom: 120px; /* Wichtig, damit die Navbar keine Inhalte verdeckt */
 }
 
 /* Bildbereich oben */
