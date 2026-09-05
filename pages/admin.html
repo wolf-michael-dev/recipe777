@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Neues Rezept - Recipe777</title>
+    <title>Admin Panel - Recipe777</title>
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/navbar.css" />
     <link rel="stylesheet" href="../css/admin.css" />
@@ -11,22 +11,27 @@
   <body>
     <header class="header-bar">
       <button class="back-btn" onclick="history.back()">❮</button>
-      <h1 style="font-size: 1.1rem; margin: 0;">Rezept hinzufügen</h1>
+      <h1 style="font-size: 1.1rem; margin: 0">Rezept hinzufügen</h1>
     </header>
 
     <main class="form-container">
       <form id="recipe-form">
         <div class="form-group">
           <label for="title">Titel des Rezepts</label>
-          <input type="text" id="title" required placeholder="z. B. Saftiger Burger" />
+          <input
+            type="text"
+            id="title"
+            required
+            placeholder="z. B. Saftiger Burger"
+          />
         </div>
 
-        <div style="display: flex; gap: 12px;">
-          <div class="form-group" style="flex: 1;">
+        <div style="display: flex; gap: 12px">
+          <div class="form-group" style="flex: 1">
             <label for="prepTime">Zeit (Min.)</label>
             <input type="number" id="prepTime" required value="30" />
           </div>
-          <div class="form-group" style="flex: 1;">
+          <div class="form-group" style="flex: 1">
             <label for="portions">Portionen</label>
             <input type="number" id="portions" required value="4" />
           </div>
@@ -44,26 +49,141 @@
 
         <div class="form-group">
           <label for="ingredients">Zutaten (kommagetrennt)</label>
-          <textarea id="ingredients" rows="3" placeholder="500g Hackfleisch, 1 Zwiebel, 2 Brötchen"></textarea>
+          <textarea
+            id="ingredients"
+            rows="3"
+            placeholder="500g Hackfleisch, 1 Zwiebel, 2 Brötchen"
+          ></textarea>
         </div>
 
         <div class="form-group">
           <label for="instructions">Zubereitung (jede Zeile ein Schritt)</label>
-          <textarea id="instructions" rows="4" placeholder="Fleisch würzen und formen.&#10;In der Pfanne von beiden Seiten braten."></textarea>
+          <textarea
+            id="instructions"
+            rows="4"
+            placeholder="Fleisch würzen und formen.&#10;In der Pfanne von beiden Seiten braten."
+          ></textarea>
         </div>
 
-        <button type="submit" class="submit-btn" id="submit-btn">Speichern</button>
+        <button type="submit" class="submit-btn" id="submit-btn">
+          Speichern
+        </button>
       </form>
-      <!-- Trennlinie & Verwaltungsliste -->
-      <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
 
+      <!-- Trennlinie & Verwaltungsliste Rezepte -->
+      <hr
+        style="
+          border: 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          margin: 40px 0;
+        "
+      />
       <section class="admin-manage-section">
-        <h2 style="font-size: 1.2rem; margin-bottom: 16px;">Bestehende Rezepte verwalten</h2>
-        <div id="admin-recipe-list" style="display: flex; flex-direction: column; gap: 12px;">
-          <p style="color: #9ca3af;">Lade Rezepte...</p>
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px">
+          Bestehende Rezepte verwalten
+        </h2>
+        <div
+          id="admin-recipe-list"
+          style="display: flex; flex-direction: column; gap: 12px"
+        >
+          <p style="color: #9ca3af">Lade Rezepte...</p>
         </div>
       </section>
-    </main>
+
+      <!-- Trennlinie & Verwaltungsliste Kategorien -->
+      <hr
+        style="
+          border: 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          margin: 40px 0;
+        "
+      />
+      <section class="admin-manage-section">
+        <h2 style="font-size: 1.2rem; margin-bottom: 16px">
+          Kategorien verwalten (Sortieren & Löschen)
+        </h2>
+
+        <form
+          id="category-form"
+          style="display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap"
+        >
+          <input
+            type="text"
+            id="cat-id"
+            placeholder="ID (z.B. desserts)"
+            required
+            style="
+              flex: 1;
+              padding: 12px;
+              border-radius: 12px;
+              background: #17191d;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              color: #fff;
+            "
+          />
+          <input
+            type="text"
+            id="cat-title"
+            placeholder="Titel (z.B. Десерты)"
+            required
+            style="
+              flex: 2;
+              padding: 12px;
+              border-radius: 12px;
+              background: #17191d;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              color: #fff;
+            "
+          />
+          <input
+            type="text"
+            id="cat-icon"
+            placeholder="Icon (z.B. 🍮)"
+            required
+            style="
+              width: 80px;
+              padding: 12px;
+              border-radius: 12px;
+              background: #17191d;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              color: #fff;
+              text-align: center;
+            "
+          />
+          <input
+            type="color"
+            id="cat-color"
+            value="#ec4899"
+            style="
+              width: 50px;
+              height: 46px;
+              border-radius: 12px;
+              border: none;
+              cursor: pointer;
+              background: transparent;
+            "
+          />
+          <button
+            type="submit"
+            style="
+              background: #0fb8cc;
+              color: #07252b;
+              border: none;
+              border-radius: 12px;
+              padding: 0 20px;
+              font-weight: bold;
+              cursor: pointer;
+            "
+          >
+            Hinzufügen
+          </button>
+        </form>
+
+        <div
+          id="admin-category-list"
+          style="display: flex; flex-direction: column; gap: 12px"
+        ></div>
+      </section>
     </main>
 
     <div id="navbar-container"></div>
