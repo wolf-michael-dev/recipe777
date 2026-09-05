@@ -1,19 +1,29 @@
-// Hilfsfunktion: Erkennt OS und setzt das Theme direkt am Body
-function ensureOSTheme() {
-  if (
-    !document.body.classList.contains("theme-android") &&
-    !document.body.classList.contains("theme-apple")
-  ) {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    if (/iPad|iPhone|iPod|Macintosh/.test(userAgent)) {
-      document.body.classList.add("theme-apple");
-    } else {
-      document.body.classList.add("theme-android");
-    }
+// Erkennt OS oder liest URL-Parameter (?theme=apple oder ?theme=android)
+function applyOSTheme() {
+  // Alte Klassen entfernen, falls sie hart ins HTML geschrieben wurden
+  document.body.classList.remove("theme-apple", "theme-android");
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const forceTheme = urlParams.get("theme");
+
+  if (forceTheme === "apple") {
+    document.body.classList.add("theme-apple");
+    return;
+  }
+  if (forceTheme === "android") {
+    document.body.classList.add("theme-android");
+    return;
+  }
+
+  // Automatische Erkennung
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  if (/iPad|iPhone|iPod|Macintosh/.test(userAgent)) {
+    document.body.classList.add("theme-apple");
+  } else {
+    document.body.classList.add("theme-android");
   }
 }
 
-// Hilfsfunktion: Berechnet Position und slidet den Indikator
 function slideTo(item) {
   const indicator = document.getElementById("nav-indicator");
   if (!item || !indicator) return;
@@ -21,7 +31,6 @@ function slideTo(item) {
   let width = item.offsetWidth;
   let left = item.offsetLeft;
 
-  // Im Android-Design ist die Pille fest 56px breit und im Item zentriert
   if (document.body.classList.contains("theme-android")) {
     const pillWidth = 56;
     left = left + (width - pillWidth) / 2;
@@ -33,7 +42,8 @@ function slideTo(item) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  ensureOSTheme(); // Garantiert, dass jede Unterseite das richtige Theme hat
+  // Theme auf jeder Seite zwingend setzen
+  applyOSTheme();
 
   const container = document.getElementById("navbar-container");
   if (!container) return;
@@ -49,24 +59,33 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((html) => {
       container.innerHTML = html;
 
-      // Pfade für Unterseiten anpassen
+      // Pfade anpassen
       if (isInPagesDir) {
-        document.getElementById("nav-recipes")?.setAttribute("href", "recipes.html");
-        document.getElementById("nav-profile")?.setAttribute("href", "profile.html");
-        document.getElementById("nav-home")?.setAttribute("href", "../index.html");
+        document
+          .getElementById("nav-recipes")
+          ?.setAttribute("href", "recipes.html");
+        document
+          .getElementById("nav-profile")
+          ?.setAttribute("href", "profile.html");
+        document
+          .getElementById("nav-home")
+          ?.setAttribute("href", "../index.html");
       }
 
-      // Aktiven Tab anhand der URL ermitteln
+      // Aktiven Tab ermitteln
       const path = window.location.pathname;
       let activeId = "nav-home";
-
       if (
         path.includes("recipes") ||
         path.includes("category") ||
         path.includes("recipe-detail")
       ) {
         activeId = "nav-recipes";
-      } else if (path.includes("profile")) {
+      } else if (
+        path.includes("profile") ||
+        path.includes("login") ||
+        path.includes("admin")
+      ) {
         activeId = "nav-profile";
       }
 
@@ -86,13 +105,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // Klick-Logik mit Slide-Animation
+      // Klick-Logik
       const navItems = document.querySelectorAll(".nav-item");
       navItems.forEach((item) => {
         item.addEventListener("click", (e) => {
           e.preventDefault();
 
-          document.querySelector(".nav-item.active")?.classList.remove("active");
+          document
+            .querySelector(".nav-item.active")
+            ?.classList.remove("active");
           item.classList.add("active");
 
           slideTo(item);
@@ -103,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
 
-      // Beim Ändern der Fenstergröße Indikator neu ausrichten
       window.addEventListener("resize", () => {
         slideTo(document.querySelector(".nav-item.active"));
       });
