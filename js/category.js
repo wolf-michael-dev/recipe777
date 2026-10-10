@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const currentCategory = urlParams.get("cat");
 
-  // 2. Passende Rezepte vom Backend laden
+  // 2. Passende Rezepte vom neuen Cloud-Backend laden
   const apiUrl = currentCategory
-    ? `https://recipe777-test.loca.lt/api/recipes?cat=${currentCategory}`
-    : "https://recipe777-test.loca.lt/api/recipes";
+    ? `http://92.5.12.17:3000/api/recipes?cat=${currentCategory}`
+    : "http://92.5.12.17:3000/api/recipes";
 
   try {
     const response = await fetch(apiUrl);
