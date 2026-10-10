@@ -2,13 +2,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const listContainer = document.getElementById("dynamic-category-list");
 
   try {
-    // Ruft die Kategorien aus deinem lokalen Backend ab
-    const response = await fetch("https://recipe777-test.loca.lt/api/categories");
+    const response = await fetch("http://92.5.12.17:3000/api/categories");
     if (!response.ok) throw new Error("Netzwerkfehler");
     
     const categories = await response.json();
     
-    // Baut für jeden Datenbankeintrag eine Kachel
     listContainer.innerHTML = categories.map(cat => `
       <a href="category.html?cat=${cat.id}" class="list-item">
         <div class="item-info">

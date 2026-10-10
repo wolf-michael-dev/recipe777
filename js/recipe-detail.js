@@ -3,25 +3,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   const recipeId = urlParams.get("id");
 
   if (!recipeId) {
-    document.getElementById("detail-title").textContent =
-      "Kein Rezept ausgewählt";
+    document.getElementById("detail-title").textContent = "Kein Rezept ausgewählt";
     return;
   }
 
   try {
-    const response = await fetch(
-      `https://recipe777-test.loca.lt/api/recipes/${recipeId}`,
-    );
+    const response = await fetch(`http://92.5.12.17:3000/api/recipes/${recipeId}`);
     if (!response.ok) throw new Error("Rezept konnte nicht geladen werden");
 
     const recipe = await response.json();
 
     // 1. Titel & Meta-Werte setzen
     document.getElementById("detail-title").textContent = recipe.title;
-    document.getElementById("detail-time").textContent =
-      `${recipe.prepTime} Min.`;
-    document.getElementById("detail-portions").textContent =
-      `${recipe.portions || 4} Pers.`;
+    document.getElementById("detail-time").textContent = `${recipe.prepTime} Min.`;
+    document.getElementById("detail-portions").textContent = `${recipe.portions || 4} Pers.`;
 
     // 2. Erstellungsdatum formatiert anzeigen
     const dateEl = document.getElementById("detail-date");
@@ -53,9 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // 5. Zubereitungsschritte aufbauen
-    const instructionsContainer = document.getElementById(
-      "detail-instructions",
-    );
+    const instructionsContainer = document.getElementById("detail-instructions");
     if (Array.isArray(recipe.instructions) && recipe.instructions.length > 0) {
       instructionsContainer.innerHTML = recipe.instructions
         .map(
@@ -67,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               ${step.text}
             </div>
           </div>
-        `,
+        `
         )
         .join("");
     }
@@ -78,25 +71,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     const deleteBtn = document.getElementById("delete-btn");
 
     if (token) {
-      // Stift-Button verlinkt auf das umbenannte Admin-Panel
       if (editBtn) {
         editBtn.style.display = "flex";
         editBtn.href = `admin.html?edit=${recipe.id}`;
       }
 
-      // Lösch-Button
       if (deleteBtn) {
         deleteBtn.style.display = "flex";
         deleteBtn.onclick = async () => {
           if (!confirm("Rezept wirklich unwiderruflich löschen?")) return;
           try {
-            const res = await fetch(
-              `https://recipe777-test.loca.lt/api/recipes/${recipe.id}`,
-              {
-                method: "DELETE",
-                headers: { Authorization: `Bearer ${token}` },
-              },
-            );
+            const res = await fetch(`http://92.5.12.17:3000/api/recipes/${recipe.id}`, {
+              method: "DELETE",
+              headers: { Authorization: `Bearer ${token}` },
+            });
             if (res.ok) {
               window.location.href = "recipes.html";
             } else {
@@ -110,7 +98,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   } catch (error) {
     console.error("Fehler beim Laden:", error);
-    document.getElementById("detail-title").textContent =
-      "Fehler beim Laden des Rezepts";
+    document.getElementById("detail-title").textContent = "Fehler beim Laden des Rezepts";
   }
 });

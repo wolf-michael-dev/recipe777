@@ -16,20 +16,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   const catForm = document.getElementById("category-form");
   const adminCatList = document.getElementById("admin-category-list");
 
-  // Prüfen, ob wir im Bearbeiten-Modus sind
   const urlParams = new URLSearchParams(window.location.search);
   const editId = urlParams.get("edit");
   let categoriesData = [];
 
   // =====================================
-  // KATEGORIEN LOGIK (Laden, Erstellen, Sortieren)
+  // KATEGORIEN LOGIK
   // =====================================
   async function loadAdminCategories() {
     try {
-      const res = await fetch("http://localhost:3000/api/categories");
+      const res = await fetch("http://92.5.12.17:3000/api/categories");
       categoriesData = await res.json();
 
-      // Update Dropdown im Rezept-Formular
       categorySelect.innerHTML = categoriesData
         .map((c) => `<option value="${c.id}">${c.title}</option>`)
         .join("");
@@ -61,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <button onclick="deleteCategory('${cat.id}')" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444; padding: 8px 12px; border-radius: 10px; cursor: pointer;">Löschen</button>
         </div>
       </div>
-    `,
+    `
       )
       .join("");
   }
@@ -79,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         color: document.getElementById("cat-color").value,
       };
 
-      await fetch("http://localhost:3000/api/categories", {
+      await fetch("http://92.5.12.17:3000/api/categories", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -94,7 +92,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   window.deleteCategory = async (id) => {
     if (!confirm("Kategorie wirklich löschen?")) return;
-    await fetch(`http://localhost:3000/api/categories/${id}`, {
+    await fetch(`http://92.5.12.17:3000/api/categories/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -105,15 +103,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const targetIndex = index + direction;
     if (targetIndex < 0 || targetIndex >= categoriesData.length) return;
 
-    // Im Array tauschen
     const temp = categoriesData[index];
     categoriesData[index] = categoriesData[targetIndex];
     categoriesData[targetIndex] = temp;
-    renderCategories(); // UI sofort aktualisieren
+    renderCategories();
 
-    // Neue Sortierung an Backend senden
     const orderedIds = categoriesData.map((c) => c.id);
-    await fetch("http://localhost:3000/api/categories/reorder", {
+    await fetch("http://92.5.12.17:3000/api/categories/reorder", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -126,21 +122,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   // =====================================
   // REZEPTE LOGIK
   // =====================================
-
-  // Falls Bearbeiten: Bestehende Daten in Felder eintragen
   if (editId) {
     if (headerTitle) headerTitle.textContent = "Rezept bearbeiten";
     submitBtn.textContent = "Änderungen speichern";
 
     try {
-      const res = await fetch(`http://localhost:3000/api/recipes/${editId}`);
+      const res = await fetch(`http://92.5.12.17:3000/api/recipes/${editId}`);
       const recipe = await res.json();
 
       document.getElementById("title").value = recipe.title;
       document.getElementById("prepTime").value = recipe.prepTime;
       document.getElementById("portions").value = recipe.portions || 4;
 
-      // Kleiner Timeout, damit das Dropdown vorher sicher gefüllt wurde
       setTimeout(() => {
         categorySelect.value = recipe.category;
       }, 100);
@@ -155,11 +148,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Bestehende Rezepte für die Liste laden
   async function loadAdminRecipes() {
     if (!adminRecipeList) return;
     try {
-      const res = await fetch("http://localhost:3000/api/recipes");
+      const res = await fetch("http://92.5.12.17:3000/api/recipes");
       const recipes = await res.json();
 
       if (recipes.length === 0) {
@@ -185,7 +177,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             </button>
           </div>
         </div>
-      `,
+      `
         )
         .join("");
     } catch (err) {
@@ -194,13 +186,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Löschen-Funktion
   window.deleteRecipe = async (id) => {
     if (!confirm("Möchtest du dieses Rezept wirklich dauerhaft löschen?"))
       return;
 
     try {
-      const res = await fetch(`http://localhost:3000/api/recipes/${id}`, {
+      const res = await fetch(`http://92.5.12.17:3000/api/recipes/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -215,7 +206,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
-  // Speichern oder Aktualisieren absenden
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
@@ -252,8 +242,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const endpoint = editId
-      ? `http://localhost:3000/api/recipes/${editId}`
-      : "http://localhost:3000/api/recipes";
+      ? `http://92.5.12.17:3000/api/recipes/${editId}`
+      : "http://92.5.12.17:3000/api/recipes";
 
     const httpMethod = editId ? "PUT" : "POST";
 
@@ -269,7 +259,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       alert(
         editId
           ? "Rezept erfolgreich aktualisiert!"
-          : "Rezept erfolgreich erstellt!",
+          : "Rezept erfolgreich erstellt!"
       );
       window.location.href = `recipe-detail.html?id=${editId || (await response.json()).id}`;
     } catch (err) {
@@ -280,7 +270,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // INITIAL LOAD
   loadAdminCategories();
   loadAdminRecipes();
 });

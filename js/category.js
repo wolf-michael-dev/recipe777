@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const currentCategory = urlParams.get("cat");
 
-  // 2. Passende Rezepte vom neuen Cloud-Backend laden
+  // 2. Passende Rezepte vom Backend laden
   const apiUrl = currentCategory
     ? `http://92.5.12.17:3000/api/recipes?cat=${currentCategory}`
     : "http://92.5.12.17:3000/api/recipes";
