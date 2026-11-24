@@ -11,21 +11,17 @@
     <main>
       <h1>Recipe777</h1>
 
-      <!-- Begrüßungskopf -->
       <header class="welcome-header">
         <p id="welcome-message"></p>
       </header>
 
-      <!-- Highlight-Karussell (Dynamisches Swipe & Lazy Load) -->
       <section class="carousel-container" id="featured-carousel">
-        <!-- Dieser unsichtbare Kasten löst das Nachladen aus, wenn er ins Bild scrollt -->
         <div
           id="carousel-observer-target"
           style="min-width: 1px; flex-shrink: 0"
         ></div>
       </section>
 
-      <!-- Kategorien-Raster (komplett) -->
       <section class="categories-section">
         <h3 id="categories-title"></h3>
         <div class="categories-grid">
@@ -48,7 +44,6 @@
         </div>
       </section>
 
-      <!-- Gedanke des Tages -->
       <section class="thought-card">
         <h4 class="thought-header">📖 <span id="thought-heading"></span></h4>
         <p class="thought-quote" id="thought-quote"></p>
@@ -56,7 +51,6 @@
       </section>
     </main>
 
-    <!-- Container für die dynamisch geladene Navigationsleiste -->
     <div id="navbar-container"></div>
 
     <script src="js/navbar.js"></script>
